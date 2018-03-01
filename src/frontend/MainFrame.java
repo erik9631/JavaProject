@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame
 {
 	private int width, height;
@@ -14,7 +15,8 @@ public class MainFrame extends JFrame
 		setVisible(true);
 		setTitle("Cisco Project");
 		setSize(this.width, this.height);
-		add(new AppPanel(width, height, Color.gray));
-		AppControler.frame = this;
+		AppPanel panel = new AppPanel(width, height, Color.gray);
+		add(panel);
+		new AppController(this, panel);
 	}
 }

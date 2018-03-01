@@ -7,12 +7,11 @@ import javax.swing.JPanel;
 
 import sun.java2d.pipe.AAShapePipe;
 
+@SuppressWarnings("serial")
 public class AppPanel extends JPanel
 {
-	MainFrame frame;
 	public AppPanel(int width, int height, Color color)
 	{
-		AppControler.panel = this;
 		setSize(width, height);
 		setLayout(null);
 		setVisible(true);
