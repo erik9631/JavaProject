@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
+import backend.core.AppController;
+
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame
 {

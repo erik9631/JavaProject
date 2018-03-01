@@ -1,9 +1,15 @@
-package frontend;
+package backend.core;
+
+import java.util.ArrayList;
+
+import frontend.AppPanel;
+import frontend.MainFrame;
 
 public class AppController
 {	
 	private static MainFrame frame;
 	private static AppPanel panel;
+	private static ArrayList<DefinedBehavior> scene = new ArrayList<DefinedBehavior>();
 	
 	public AppController(MainFrame frame, AppPanel panel)
 	{
@@ -19,6 +25,15 @@ public class AppController
 	public static AppPanel getAppPanel()
 	{
 		return panel;
+	}
+	
+	public static void addToScene(DefinedBehavior obj)
+	{
+		scene.add(obj);
+	}
+	public static int getSceneCount()
+	{
+		return scene.size();
 	}
 	
 }

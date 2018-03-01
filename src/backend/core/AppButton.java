@@ -3,7 +3,7 @@ import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
 import frontend.LabelButton;
 
-public class AppButton implements LoadLayerEvent, Clickable
+public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clickable
 {
 	int layer;
 	private LabelButton GuiButton;
