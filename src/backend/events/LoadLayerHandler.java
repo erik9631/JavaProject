@@ -21,10 +21,32 @@ public class LoadLayerHandler
 	{
 		for(LoadLayerEvent i : subscribers)
 		{
-			if(i.getLayer() == layer)
-				i.loadLayer();
+			if(i.isBlackList() == false)
+			{
+				for(int j : i.getLayers())
+				{
+					if(j == layer)
+					{
+						i.loadLayer();
+						break;
+					}
+					else
+						i.unloadLayer();
+				}
+			}
 			else
-				i.unloadLayer();
+			{
+				for(int j : i.getLayers())
+				{
+					if(j == layer)
+					{
+						i.unloadLayer();
+						break;
+					}
+					else
+						i.loadLayer();
+				}
+			}
 		}
 	}
 }

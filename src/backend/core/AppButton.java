@@ -1,31 +1,84 @@
 package backend.core;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
 import frontend.LabelButton;
 
 public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clickable
 {
-	int layer;
-	private LabelButton GuiButton;
+	private ArrayList<Integer> layers;
+	private LabelButton guiButton;
 	private String text;
 	private Actions actions;
-	
+	private boolean blacklisted;
 	
 	// Introdukcia noveho menovaneho typu na invokovanie dodatocnych metods
 	
-	public AppButton(int layer, String text)
+	private void addToList(int layers[])
 	{
-		actions = new Actions();
-		this.text = text;
-		this.layer = layer;
-		GuiButton = new LabelButton(this);
-		LoadLayerHandler.subscribe(this);
-		
+		for(int i = 0; i < layers.length; i++)
+			this.layers.add(layers[i]);
+			
 	}
 	
-	public AppButton(int layer, String text, int x, int y)
+	public void setFontSize(int size)
 	{
-		
+		guiButton.setFontSize(size);
+	}
+	
+	public AppButton(String text, boolean blacklisted, JPanel panel ,int ... layers)
+	{
+		this(layers, text, blacklisted);
+		guiButton = new LabelButton(this, panel);
+		LoadLayerHandler.subscribe(this);
+	}
+	
+	/*public AppButton(String text, boolean blacklisted, int ... layers)
+	{
+		guiButton = new LabelButton(this);
+		initAppButton(text, blacklisted, layers);
+	}*/
+	
+	private AppButton(int layers[], String text, boolean blacklisted)
+	{
+		this.layers = new ArrayList<Integer>();
+		addToList(layers);
+		actions = new Actions();
+		this.text = text;
+		LoadLayerHandler.subscribe(this);
+		this.blacklisted = blacklisted;
+		addTag(text);
+	}
+	
+	public AppButton(String text, boolean blacklisted, int ... layers)
+	{
+		this(layers, text, blacklisted);
+		guiButton = new LabelButton(this);
+		LoadLayerHandler.subscribe(this);
+	}
+	
+	
+	public int getHeight()
+	{
+		return guiButton.getHeight();
+	}
+	
+	public int getWidth()
+	{
+		return guiButton.getWidth();
+	}
+	
+	public int getPosX()
+	{
+		return guiButton.getX();
+	}
+	
+	public int getPosY()
+	{
+		return guiButton.getY();
 	}
 	
 	public Actions getActions()
@@ -87,25 +140,25 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 	
 	public void setPos(int x, int y)
 	{
-		GuiButton.setLocation(x, y);
+		guiButton.setLocation(x, y);
 	}
 	
 	@Override
 	public void unloadLayer()
 	{
-		GuiButton.setVisible(false);
+		guiButton.setVisible(false);
 	}
 	
 	@Override
 	public void loadLayer()
 	{
-		GuiButton.setVisible(true);
+		guiButton.setVisible(true);
 	}
 
 	@Override
-	public int getLayer()
+	public ArrayList<Integer> getLayers()
 	{
-		return layer;
+		return layers;
 	}
 
 	@Override
@@ -130,6 +183,12 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 	public void onRelease()
 	{
 		actions.onRelease();
+	}
+
+	@Override
+	public boolean isBlackList()
+	{
+		return blacklisted;
 	}
 	
 }

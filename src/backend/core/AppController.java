@@ -36,4 +36,12 @@ public class AppController
 		return scene.size();
 	}
 	
+	public static <T> T getByTag(String tag)
+	{
+		for(DefinedBehavior i : scene)
+			if(i.hasTag(tag))
+				return (T)i;
+		return null;
+	}
+	
 }

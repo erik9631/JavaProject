@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import backend.core.AppController;
 import backend.core.Clickable;
@@ -13,30 +14,43 @@ import backend.core.Clickable;
 @SuppressWarnings("serial")
 public class LabelButton extends JLabel implements MouseListener
 {
-	private String text = "crap";
+	private String text;
 	
 	//Font properties
 	private String display = text;
 	private boolean entered = false;
 	private int size = 12;
 	private Clickable clickable;
-	
 	public LabelButton(Clickable obj)
 	{
-		this.clickable = obj;
 		text = obj.getText();
+		this.clickable = obj;
+		AppController.getAppPanel().add(this);
+		initLabelButton();
+	}
+	
+	private void initLabelButton()
+	{
+		text = clickable.getText();
 		setVisible(true);
 		addMouseListener(this);
-		AppController.getAppPanel().add(this);
 		setLocation(100, 100);
-		setSize(100, 100);
 		setFontStyle(Color.BLUE, 2);
 		setFontSize(30);
 	}
 	
+	public LabelButton(Clickable obj, JPanel panel)
+	{
+		text = obj.getText();
+		this.clickable = obj;
+		panel.add(this);
+		initLabelButton();
+	}
+	
+	
 	public void setFontSize(int size)
 	{
-		setSize((int) ( (size * text.length()) * 0.6 ), 100);
+		setSize((int) ( (size * text.length()) * 0.6 ), size * 2);
 		this.size = size;
 		setFontSize();
 	}
