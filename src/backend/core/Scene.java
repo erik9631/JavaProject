@@ -1,5 +1,7 @@
 package backend.core;
 
+import javax.swing.JTextField;
+
 import backend.events.LoadLayerHandler;
 import backend.menu.TopMenuBar;
 import frontend.MainFrame;
@@ -10,13 +12,29 @@ public class Scene
 	{
 		new MainFrame(800 ,600);		
 		//Initialisations
+		//Layer 0
 		AppButton button1 = new AppButton("Login", false, 0);
-		button1.setFontSize(30);;
+		TopMenuBar menuBar = new TopMenuBar(0, 0, 0);
+		JTextField username = new JTextField();
+		JTextField password = new JTextField();
+
 		
-		new TopMenuBar(0, 0, 0);
+		//Layer 1
+		
+		//Properties
+		button1.setFontSize(20);
+		button1.setPos(AppController.getMainFrame().getWidth()/2 - button1.getWidth()/2 + 100 , AppController.getMainFrame().getHeight()/2 - button1.getHeight()/2);
+		
+		AppController.getAppPanel().add(username);
+		AppController.getAppPanel().add(password);
+		username.setSize(150, 30);
+		password.setSize(150, 30);
+		username.setLocation(button1.getPosX() - username.getWidth(), button1.getPosY() - username.getHeight()*2 - 20);
+		password.setLocation(username.getX(), username.getY() + username.getHeight() + 20);
+		
+		
 		
 		//Definitions
-		button1.setPos(50, 100);
 		button1.getActions().setOnClickAction(() -> {
 			LoadLayerHandler.loadLayer(1);
 		});
