@@ -1,11 +1,13 @@
 package frontend;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import backend.core.AppController;
 
@@ -22,11 +24,13 @@ public class MainFrame extends JFrame implements ComponentListener
 	
 	public MainFrame(int width, int height)
 	{
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.width = width;
 		this.height = height;
 		setVisible(true);
 		setTitle("Cisco Project");
 		setSize(this.width, this.height);
+		setMinimumSize(new Dimension(this.width, this.height));
 		AppPanel panel = new AppPanel(width, height, Color.gray);
 		add(panel);
 		addComponentListener(this);

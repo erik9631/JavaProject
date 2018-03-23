@@ -10,62 +10,40 @@ import frontend.ComponentInformer;
 import frontend.LabelButton;
 import frontend.MainFrame;
 
-public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clickable, ComponentInformer
+public class AppButton extends BaseItem implements Clickable
 {
-	private ArrayList<Integer> layers;
 	private LabelButton guiButton;
 	private String text;
 	private Actions actions;
 	int fontSize = 18;
-	private boolean blacklisted;
 	
-	//Responsibility calculation
-	
-		
-	private void addToList(int layers[])
+	public AppButton(String text, boolean blacklisted, int ... layers)
 	{
-		for(int i = 0; i < layers.length; i++)
-			this.layers.add(layers[i]);
-			
+		super(layers, blacklisted);
+		this.text = text;
+		actions = new Actions();
+		guiButton = createGuiComponent(new LabelButton(this)); // Factory
+		
 	}
+	/*
+	 * TODO
+	 * Remove duplicite code
+	 */
+	public AppButton(String text, boolean blacklisted, JPanel panel ,int ... layers)
+	{
+		super(layers, blacklisted);
+		this.text = text;
+		actions = new Actions();
+		guiButton = createGuiComponent(new LabelButton(this, panel));	
+
+	}
+	
 	
 	public void setFontSize(int size)
 	{
 		guiButton.setFontSize(size);
 	}
-	
-	public AppButton(String text, boolean blacklisted, JPanel panel ,int ... layers)
-	{
-		this(layers, text, blacklisted);
-		guiButton = new LabelButton(this, panel);
-		LoadLayerHandler.subscribe(this);
-		MainFrame.subscribe(this);
-		adaptSize();
 
-
-	}
-
-	
-	private AppButton(int layers[], String text, boolean blacklisted)
-	{
-		this.layers = new ArrayList<Integer>();
-		addToList(layers);
-		actions = new Actions();
-		this.text = text;
-		LoadLayerHandler.subscribe(this);
-		this.blacklisted = blacklisted;
-		addTag(text);
-	}
-	
-	public AppButton(String text, boolean blacklisted, int ... layers)
-	{
-		this(layers, text, blacklisted);
-		guiButton = new LabelButton(this);
-		LoadLayerHandler.subscribe(this);
-		adaptSize();
-
-	}
-	
 	
 	public int getHeight()
 	{
@@ -146,7 +124,7 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 	
 	public void setPos(int x, int y)
 	{
-		guiButton.setLocation(x, y);
+		guiButton.setRelativePos(x, y);
 	}
 	
 	@Override
@@ -194,21 +172,13 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 	@Override
 	public boolean isBlackList()
 	{
-		return blacklisted;
-	}
-
-	@Override
-	public void mainFrameResized()
-	{
-		adaptSize();
+		return blackListed;
 	}
 	
-	private void adaptSize()
+	/*private void adaptSize()
 	{
-		int width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		int height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		
-		System.out.println(fontSize * (height/600));
+		int width = 100;//(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		int height =  100;//(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		
 		if(width < height)
 		{
@@ -218,12 +188,8 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 		{
 			setFontSize(fontSize * (height/600));
 		}
-		/*
-		 * TODO
-		 */
-		//Make responsive
+
 		
 		setPos(getPosX() * (width/600), getPosY() * (height/800));
-	}
-	
+	}*/
 }

@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,53 +13,53 @@ import backend.core.Clickable;
 
 
 @SuppressWarnings("serial")
-public class LabelButton extends JLabel implements MouseListener
+public class LabelButton extends JLabel implements MouseListener, ResponsiveComponent
 {
 	private String text;
 	
-	//Font properties
-	private String display = text;
+	private ComponentResponsibilityManager componentManager;
 	private boolean entered = false;
-	private int size = 12;
+	private int size;
 	private Clickable clickable;
+	int relativeX, relativeY;
 	public LabelButton(Clickable obj)
 	{
+		componentManager = new ComponentResponsibilityManager(this);
 		text = obj.getText();
 		this.clickable = obj;
 		AppController.getAppPanel().add(this);
 		initLabelButton();
 	}
 	
-	private void initLabelButton()
+	/*
+	 * TODO
+	 * Remove duplicate code from constructor
+	 */
+	
+	public void setRelativePos(int x, int y)
 	{
-		text = clickable.getText();
+		this.relativeX = x;
+		this.relativeY = y;
+		componentManager.setRelativePos();
+	}
+	
+	private final void initLabelButton()
+	{ 
+		clickable.getText();
 		setVisible(true);
 		addMouseListener(this);
 		setLocation(100, 100);
-		setFontStyle(Color.BLUE, 2);
-		setFontSize(30);
+		componentManager.setFontStyle(Color.BLUE, 2);;
+		componentManager.setFontSize(30);
 	}
 	
 	public LabelButton(Clickable obj, JPanel panel)
 	{
+		componentManager = new ComponentResponsibilityManager(this);
 		text = obj.getText();
 		this.clickable = obj;
 		panel.add(this);
 		initLabelButton();
-	}
-	
-	
-	public void setFontSize(int size)
-	{
-		setSize((int) ( (size * text.length()) * 0.6 ), size * 2);
-		this.size = size;
-		setFontSize();
-	}
-	
-	public void setDisplay(String display)
-	{
-		this.display = display;
-		setText(display);
 	}
 	
 	@Override
@@ -71,21 +72,21 @@ public class LabelButton extends JLabel implements MouseListener
 	public void mouseEntered(MouseEvent e)
 	{
 		entered = true;
-		setFontStyle(Color.white, 2);
+		componentManager.setFontStyle(Color.white, 2);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
 		entered = false;
-		setFontStyle(Color.blue, 2);
+		componentManager.setFontStyle(Color.blue, 2);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
 		clickable.onPress();
-		setFontStyle(new Color(100, 0, 100), 2);
+		componentManager.setFontStyle(new Color(100, 0, 100), 2);
 	}
 
 	@Override
@@ -93,36 +94,53 @@ public class LabelButton extends JLabel implements MouseListener
 	{
 		clickable.onRelease();
 		if(entered == false)
-			setFontStyle(Color.blue, 2);
+			componentManager.setFontStyle(Color.blue, 2);
 		else
-			setFontStyle(Color.white, 2);
+			componentManager.setFontStyle(Color.white, 2);
 	}
 	
-	public void setFontStyle(Color color, int style)
+	public void setFontSize(int size)
 	{
-		setForeground(color);
-		switch(style)
-		{
-			case -1:
-				setDisplay(text);
-			case 0:
-				setDisplay("<html><b style=\"font-size: " + Integer.toString(size) + "\">" + text + "</b></html>");
-			case 1:
-				setDisplay("<html><i style=\"font-size: " + Integer.toString(size) + "\">" + text + "</i></html>");
-			case 2:
-				setDisplay("<html><u style=\"font-size: " + Integer.toString(size) + "\">" + text + "</u></html>");
-		}
+		this.size = size;
+		componentManager.setFontSize(size);
 	}
-	
-	private void setFontSize()
+
+	@Override
+	public String getFontText()
 	{
-		//Sets html font size using string builder and updates the display
-		StringBuilder builder = new StringBuilder();
-		builder.append(display);
-		int first = builder.indexOf("font-size: ") + ("font-size: ").length();
-		int last = builder.indexOf("\"", first);
-		builder.replace(first, last, Integer.toString(size));
-		setDisplay(builder.toString());
+		return text;
+	}
+
+	@Override
+	public int getFontSize()
+	{
+		return size;
+	}
+
+	@Override
+	public String getHtmlText()
+	{
+		return getText();
+	}
+
+	@Override
+	public int getPosX()
+	{
+		return relativeX;
+	}
+
+	@Override
+	public int getPosY()
+	{
+		// TODO Auto-generated method stub
+		return relativeY;
+	}
+
+	@Override
+	public Dimension getOriginSize()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
