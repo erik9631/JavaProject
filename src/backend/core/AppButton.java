@@ -1,22 +1,27 @@
 package backend.core;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
+import frontend.ComponentInformer;
 import frontend.LabelButton;
+import frontend.MainFrame;
 
-public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clickable
+public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clickable, ComponentInformer
 {
 	private ArrayList<Integer> layers;
 	private LabelButton guiButton;
 	private String text;
 	private Actions actions;
+	int fontSize = 18;
 	private boolean blacklisted;
 	
-	// Introdukcia noveho menovaneho typu na invokovanie dodatocnych metods
+	//Responsibility calculation
 	
+		
 	private void addToList(int layers[])
 	{
 		for(int i = 0; i < layers.length; i++)
@@ -34,13 +39,12 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 		this(layers, text, blacklisted);
 		guiButton = new LabelButton(this, panel);
 		LoadLayerHandler.subscribe(this);
+		MainFrame.subscribe(this);
+		adaptSize();
+
+
 	}
-	
-	/*public AppButton(String text, boolean blacklisted, int ... layers)
-	{
-		guiButton = new LabelButton(this);
-		initAppButton(text, blacklisted, layers);
-	}*/
+
 	
 	private AppButton(int layers[], String text, boolean blacklisted)
 	{
@@ -58,6 +62,8 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 		this(layers, text, blacklisted);
 		guiButton = new LabelButton(this);
 		LoadLayerHandler.subscribe(this);
+		adaptSize();
+
 	}
 	
 	
@@ -189,6 +195,35 @@ public class AppButton extends DefinedBehavior implements LoadLayerEvent, Clicka
 	public boolean isBlackList()
 	{
 		return blacklisted;
+	}
+
+	@Override
+	public void mainFrameResized()
+	{
+		adaptSize();
+	}
+	
+	private void adaptSize()
+	{
+		int width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		int height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		
+		System.out.println(fontSize * (height/600));
+		
+		if(width < height)
+		{
+			setFontSize(fontSize * (width/800));	
+		}
+		else
+		{
+			setFontSize(fontSize * (height/600));
+		}
+		/*
+		 * TODO
+		 */
+		//Make responsive
+		
+		setPos(getPosX() * (width/600), getPosY() * (height/800));
 	}
 	
 }

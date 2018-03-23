@@ -1,62 +1,44 @@
 package frontend;
 
 import java.awt.Color;
-import java.util.ArrayList;
-
+import javax.management.RuntimeErrorException;
 import javax.swing.JPanel;
 
 import backend.core.AppController;
-import backend.events.LoadLayerEvent;
+import backend.core.Resizable;
 
 @SuppressWarnings("serial")
-public class AppPanel extends JPanel implements LoadLayerEvent
+public class AppPanel extends JPanel implements ComponentInformer
 {
-	ArrayList<Integer>layers;
-	boolean blacklisted = true;
+	Object owner;
 	public AppPanel(int width, int height, Color color)
 	{
 		if(AppController.getAppPanel() != null)
-			AppController.getAppPanel().add(this);
-		
+			throw new RuntimeErrorException(new Error("Can not have two main panels"));
+		init(width, height, color);
+	}
+	
+	private void init(int width, int height, Color color)
+	{
+		MainFrame.subscribe(this);
 		setSize(width, height);
 		setLayout(null);
 		setVisible(true);
 		setBackground(color);
 	}
 	
-	private void addToList(int[] layers)
+	public AppPanel(int width, int height, Color color, Object owner)
 	{
-		for(int i : layers)
-			this.layers.add(i);
-	}
-	
-	public AppPanel(int width, int height, Color color, boolean blacklisted, int ... layers)
-	{
-		this(width, height, color);
-		addToList(layers);
+		this.owner = owner;
+		AppController.getAppPanel().add(this);
+		init(width, height, color);
 	}
 
-	@Override
-	public void loadLayer()
-	{
-		this.setVisible(true);
-	}
 
 	@Override
-	public void unloadLayer()
+	public void mainFrameResized()
 	{
-		this.setVisible(false);
-	}
-
-	@Override
-	public ArrayList<Integer> getLayers()
-	{
-		return layers;
-	}
-
-	@Override
-	public boolean isBlackList()
-	{
-		return blacklisted;
+		if(owner instanceof Resizable)
+			((Resizable)owner).onResize();
 	}
 }
