@@ -26,8 +26,6 @@ public class Scene
 		button1.setFontSize(20);
 		button1.setPos(AppController.getMainFrame().getWidth()/2 - button1.getWidth()/2 + 100 , AppController.getMainFrame().getHeight()/2 - button1.getHeight()/2);
 		
-		//AppController.getAppPanel().add(username);
-		//AppController.getAppPanel().add(password);
 		username.setSize(150, 30);
 		password.setSize(150, 30);
 		username.setPos(button1.getPosX() - username.getWidth(), button1.getPosY() - username.getHeight()*2 - 20);
