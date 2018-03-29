@@ -6,6 +6,8 @@ import backend.events.LoadLayerHandler;
 import backend.menu.TopMenuBar;
 import backend.menu.WriteField;
 import frontend.MainFrame;
+import users.CsvSerializer;
+import users.Student;
 
 public class Scene
 {
@@ -35,7 +37,16 @@ public class Scene
 		
 		//Definitions
 		login.getActions().setOnClickAction(() -> {
-			LoadLayerHandler.loadLayer(1);
+			Student student = new Student(username.getText(), password.getText());
+			CsvSerializer<Student> serializer = new CsvSerializer<Student>();
+			//serializer.saveToCsv("Students.csv", student);
+			
+			String[] properties = {student.getUserName(), student.getPassword()};
+			int[] colums = {0, 1};
+			
+			
+			if(serializer.findMatchingProperties(colums, properties, "Students.csv") > -1)
+				LoadLayerHandler.loadLayer(1);
 		});
 		
 		LoadLayerHandler.loadLayer(0);	

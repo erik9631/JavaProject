@@ -7,4 +7,11 @@ public class Administrator extends User
 		super(userName, password);
 	}
 
+	@Override
+	public String csvSerialize()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

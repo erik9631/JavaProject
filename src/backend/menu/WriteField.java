@@ -25,6 +25,11 @@ public class WriteField extends BaseItem implements LoadLayerEvent
 		field.setSize(new Dimension(width, height));
 	}
 	
+	public String getText()
+	{
+		return field.getText();
+	}
+	
 	public int getWidth()
 	{
 		return field.getWidth();

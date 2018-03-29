@@ -1,12 +1,16 @@
 package users;
 
+import java.io.FileWriter;
+import java.util.HashMap;
+
 import backend.core.UserDatabase;
 
-public class User
+public abstract class User implements CsvSerializable
 {
 	private String userName;
 	private String password;
 	private static UserDatabase database = new UserDatabase();
+	protected StringBuilder serializableProperties;
 	
 	protected User(String userName, String password)
 	{
@@ -24,5 +28,17 @@ public class User
 	{
 		return password;
 	}
+	
+	public static UserDatabase getUserDatabase()
+	{
+		return database;
+	}
+
+	public abstract String csvSerialize();
+	
+	/*
+	 * TODO
+	 * Try to remove static later
+	 */
 	
 }
