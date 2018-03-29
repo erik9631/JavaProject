@@ -25,6 +25,16 @@ public class CsvSerializer<T extends User>
 	
 	public void saveToCsv(String fileName, T user)
 	{
-		
+		if(user instanceof Student)
+		{
+			try
+			{
+				saveStudent(user);
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
