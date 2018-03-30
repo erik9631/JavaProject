@@ -2,6 +2,7 @@ package backend.core;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import backend.events.LoadLayerEvent;
@@ -22,14 +23,14 @@ public class AppButton extends BaseItem implements Clickable
 		super(layers, blacklisted);
 		this.text = text;
 		actions = new Actions();
-		guiButton = createGuiComponent(new LabelButton(this)); // Factory
+		guiButton = createGuiComponent(new LabelButton(this));
 		
 	}
 	/*
 	 * TODO
 	 * Remove duplicite code
 	 */
-	public AppButton(String text, boolean blacklisted, JPanel panel ,int ... layers)
+	public AppButton(String text, boolean blacklisted, JComponent panel ,int ... layers)
 	{
 		super(layers, blacklisted);
 		this.text = text;

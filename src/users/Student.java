@@ -1,14 +1,24 @@
 package users;
 
+import java.awt.Toolkit;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import backend.core.AppController;
+import backend.core.UserDatabase;
 
 public class Student extends User
 {
 	//Course assignedCourse;
 	private ArrayList<Float> testPercentage;
 	
+	
+	public Student()
+	{
+		super(null, null);
+		testPercentage = new ArrayList<Float>();
+	}
 	
 	public Student(String userName, String password)
 	{
@@ -28,5 +38,11 @@ public class Student extends User
 		serializableProperties.append(getPassword());
 		serializableProperties.append("\n");
 		return serializableProperties.toString();
+	}
+	@Override
+	public void loadProperties(UserDatabase database, String username)
+	{
+		this.username = username;
+		this.password = database.getSubDatabase("Students").get(username).get(1);
 	}
 }

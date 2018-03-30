@@ -7,34 +7,25 @@ import backend.core.UserDatabase;
 
 public abstract class User implements CsvSerializable
 {
-	private String userName;
-	private String password;
-	private static UserDatabase database = new UserDatabase();
+	protected String username;
+	protected String password;
 	protected StringBuilder serializableProperties;
 	
 	protected User(String userName, String password)
 	{
-		this.userName = userName;
+		this.username = userName;
 		this.password = password;
-		database.addToDatabase(this);
 	}
 	
 	public String getUserName()
 	{
-		return userName;
+		return username;
 	}
 	
 	public String getPassword()
 	{
 		return password;
 	}
-	
-	public static UserDatabase getUserDatabase()
-	{
-		return database;
-	}
-
-	public abstract String csvSerialize();
 	
 	/*
 	 * TODO

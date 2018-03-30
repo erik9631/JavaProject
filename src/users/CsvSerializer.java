@@ -4,9 +4,17 @@ import java.io.EOFException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+import javax.management.openmbean.ArrayType;
 
 public class CsvSerializer<T extends User>
 {
+	/*
+	 * Serializes properties defined in the csvSerializable interface 
+	 * 
+	 */
 	
 	private String readColumRow(int colum, int row, String filename) throws IOException
 	{
@@ -110,6 +118,45 @@ public class CsvSerializer<T extends User>
 		writer.append(user.csvSerialize());
 		writer.close();
 		System.out.println("Saved to file");
+		
+	}
+	
+	public Hashtable<String, ArrayList<String>> loadDatabase(String filename)
+	{
+		//Load usernames
+		Hashtable<String, ArrayList<String>> Database = new Hashtable<String, ArrayList<String>>();
+		
+		
+		for(int row = 0; true; row++)
+		{
+			String content;
+			try
+			{
+				content = readColumRow(0, row, filename);
+				Database.put(content, new ArrayList<String>());
+			} 
+			catch (IOException e)
+			{
+				System.out.println(e.getMessage());
+				break;
+			}
+			
+			for(int colum = 0; true; colum++)
+			{
+				try
+				{
+					Database.get(content).add(readColumRow(colum, row, filename));
+				} 
+				catch (IOException e)
+				{
+					System.out.println(e.getMessage());
+					break;
+				}				
+			}
+
+		}
+		
+		return Database;
 		
 	}
 	

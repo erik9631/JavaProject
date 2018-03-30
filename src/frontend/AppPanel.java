@@ -2,6 +2,7 @@ package frontend;
 
 import java.awt.Color;
 import javax.management.RuntimeErrorException;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import backend.core.AppController;
@@ -32,6 +33,12 @@ public class AppPanel extends JPanel implements ComponentInformer
 		this.owner = owner;
 		AppController.getAppPanel().add(this);
 		init(width, height, color);
+	}
+	
+	public void setParent(JComponent panel)
+	{
+		AppController.getAppPanel().remove(this);
+		panel.add(this);
 	}
 
 

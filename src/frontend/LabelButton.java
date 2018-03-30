@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -53,7 +54,7 @@ public class LabelButton extends JLabel implements MouseListener, ResponsiveComp
 		componentManager.setFontSize(30);
 	}
 	
-	public LabelButton(Clickable obj, JPanel panel)
+	public LabelButton(Clickable obj, JComponent panel)
 	{
 		componentManager = new ComponentResponsibilityManager(this);
 		text = obj.getText();

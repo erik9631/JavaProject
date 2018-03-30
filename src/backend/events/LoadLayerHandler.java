@@ -8,16 +8,20 @@ import java.util.ArrayList;
  * 
  */
 
-public class LoadLayerHandler
+public final class LoadLayerHandler
 {
-	private static ArrayList<LoadLayerEvent> subscribers = new ArrayList<LoadLayerEvent>();
+	private LoadLayerHandler()
+	{
+		
+	}
+	private final static ArrayList<LoadLayerEvent> subscribers = new ArrayList<LoadLayerEvent>();
 	
-	public static void subscribe(LoadLayerEvent subscriber)
+	public static final void subscribe(LoadLayerEvent subscriber)
 	{
 		subscribers.add(subscriber);
 	}
 	
-	public static void loadLayer(int layer)
+	public static final void loadLayer(int layer)
 	{
 		for(LoadLayerEvent i : subscribers)
 		{

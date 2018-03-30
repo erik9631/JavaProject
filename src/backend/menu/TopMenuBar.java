@@ -55,6 +55,10 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		
 		tests.setPos(curiculum.getPosX() + spaceSize + curiculum.getWidth(), centerY);
 		tests.setFontSize(fontSize);
+		tests.getActions().setOnClickAction(() ->
+		{
+			LoadLayerHandler.loadLayer(2);
+		});
 		
 		grades.setPos(tests.getPosX() + spaceSize + tests.getWidth(), centerY);
 		grades.setFontSize(fontSize);
@@ -125,4 +129,9 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		// TODO Auto-generated method stub
 		return new Dimension(originWidth, originHeight);
 	}
+	
+	/*
+	 * TODO
+	 * Move responsive component to frontEnd
+	 */
 }

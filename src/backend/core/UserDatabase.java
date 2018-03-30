@@ -1,35 +1,63 @@
 package backend.core;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import users.User;
+import users.UserFactory;
 
 public class UserDatabase
 {
-	ArrayList<User>GlobalDatabase;
+	Hashtable<String, Hashtable<String, ArrayList<String>>> Database;
 	
-	public UserDatabase()
+	public static User currentUser;
+	
+	UserDatabase()
 	{
-		GlobalDatabase = new ArrayList<User>();
+		Database = new Hashtable<String, Hashtable<String, ArrayList<String>>>();
 	}
 	
-	public void removeFromDatabase(User user)
+	public void AddSubDatabase(String databaseKey, Hashtable<String, ArrayList<String>> subDatabase)
 	{
-		GlobalDatabase.remove(user);
+		Database.put(databaseKey, subDatabase);
 	}
 	
-	public void addToDatabase(User user)
+	public Hashtable<String, ArrayList<String>> getSubDatabase(String databaseKey)
 	{
-		GlobalDatabase.add(user);
+		return Database.get(databaseKey);
 	}
 	
-	public void getUserFromDatabase(int index)
+	public void RemoveSubDatabase(Hashtable<String, ArrayList<String>> subDatabase)
 	{
-		GlobalDatabase.get(index);
+		Database.remove((Object)subDatabase);
+	}
+	public void RemoveSubDatabase(String databaseKey)
+	{
+		Database.remove(databaseKey);
 	}
 	
-	public void getUserFromDatabase(User user)
+	public ArrayList<String> findByUsername(String subDatabase, String username)
 	{
-		GlobalDatabase.get(GlobalDatabase.indexOf(user));
+		return Database.get(subDatabase).get(username);
 	}
+	
+	public <T> User createUserInstance(String username, User user)
+	{
+		user.loadProperties(this, username);
+		return user;
+	}
+	
+	public <T> Hashtable<String, ? extends User> instanciateSubDatabase(String subDatabase, String type)
+	{
+		Hashtable<String, T>userInstanceDatabase = new Hashtable<String, T>();
+		UserFactory userFactory = new UserFactory();
+		
+		for(String username : Database.get(subDatabase).keySet())
+		{
+			userInstanceDatabase.put(username, (T) createUserInstance(username, userFactory.getUser(type) ));
+		}
+		return (Hashtable<String, ? extends User>) userInstanceDatabase;
+
+	}
+	
 }

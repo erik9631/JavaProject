@@ -9,6 +9,7 @@ public class ComponentResponsibilityManager implements ComponentInformer
 	ResponsiveComponent component;
 	public boolean canSetRelativeHeight = false;
 	public boolean canSetRelativeWidth = false;
+	private float sizeMultiplier = 0.70f;
 	
 	public ComponentResponsibilityManager(ResponsiveComponent component)
 	{
@@ -17,26 +18,36 @@ public class ComponentResponsibilityManager implements ComponentInformer
 		this.component = component;
 	}
 	
+	public void setSizeMultiplier(float multiplier)
+	{
+		sizeMultiplier = multiplier;
+	}
+	
 	public void setFontStyle(Color color, int style)
 	{
 		component.setForeground(color);
 		switch(style)
 		{
 			case -1:
-				component.setText(component.getFontText());
+				component.setText("<html><font style=\"font-size: " + Integer.toString(component.getFontSize()) + "\">" + component.getFontText() + "</font></html>");
+				break;
 			case 0:
 				component.setText("<html><b style=\"font-size: " + Integer.toString(component.getFontSize()) + "\">" + component.getFontText() + "</b></html>");
+				break;
 			case 1:
 				component.setText("<html><i style=\"font-size: " + Integer.toString(component.getFontSize()) + "\">" + component.getFontText() + "</i></html>");
+				break;
 			case 2:
 				component.setText("<html><u style=\"font-size: " + Integer.toString(component.getFontSize()) + "\">" + component.getFontText() + "</u></html>");
+				break;
+
 		}
 	}
 	
 	public void setFontSize(int size)
 	{
 		//Sets html font size using string builder and updates the display
-		component.setSize((int) ( (size * component.getFontText().length()) * 0.65 ), size * 2);
+		component.setSize((int) ( (component.getFontSize() * component.getFontText().length()) * sizeMultiplier ), component.getFontSize() * 2);
 		StringBuilder builder = new StringBuilder();
 		builder.append(component.getHtmlText());
 		int first = builder.indexOf("font-size: ") + ("font-size: ").length();
