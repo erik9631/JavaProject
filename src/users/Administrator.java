@@ -20,7 +20,7 @@ public class Administrator extends User
 		return null;
 	}
 	@Override
-	public void loadProperties(UserDatabase database, String username)
+	public void loadProperties(UserDatabase database)
 	{
 		// TODO Auto-generated method stub
 		

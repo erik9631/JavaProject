@@ -30,6 +30,7 @@ public class Scene
 		Hashtable<String, Student>instanceDatabase = (Hashtable<String, Student>) database.instanciateSubDatabase("Students", "STUDENT");
 		System.out.println(instanceDatabase.get("Jason").getPassword());
 		
+		instanceDatabase.get("Jason").sendMessage("Go fuck yourself");
 		
 		
 		

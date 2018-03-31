@@ -7,5 +7,5 @@ import backend.core.UserDatabase;
 public interface CsvSerializable
 {
 	public String csvSerialize();
-	public void loadProperties(UserDatabase database, String username);
+	public void loadProperties(UserDatabase database);
 }

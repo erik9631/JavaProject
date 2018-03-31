@@ -12,17 +12,9 @@ public class Student extends User
 {
 	//Course assignedCourse;
 	private ArrayList<Float> testPercentage;
-	
-	
-	public Student()
+	public Student(String username, String password)
 	{
-		super(null, null);
-		testPercentage = new ArrayList<Float>();
-	}
-	
-	public Student(String userName, String password)
-	{
-		super(userName, password);
+		super(username, password);
 		testPercentage = new ArrayList<Float>();
 		
 	}
@@ -40,9 +32,8 @@ public class Student extends User
 		return serializableProperties.toString();
 	}
 	@Override
-	public void loadProperties(UserDatabase database, String username)
+	public void loadProperties(UserDatabase database)
 	{
-		this.username = username;
 		this.password = database.getSubDatabase("Students").get(username).get(1);
 	}
 }

@@ -41,9 +41,9 @@ public class UserDatabase
 		return Database.get(subDatabase).get(username);
 	}
 	
-	public <T> User createUserInstance(String username, User user)
+	public <T> User createUserInstance(User user)
 	{
-		user.loadProperties(this, username);
+		user.loadProperties(this);
 		return user;
 	}
 	
@@ -54,7 +54,7 @@ public class UserDatabase
 		
 		for(String username : Database.get(subDatabase).keySet())
 		{
-			userInstanceDatabase.put(username, (T) createUserInstance(username, userFactory.getUser(type) ));
+			userInstanceDatabase.put(username, (T) createUserInstance(userFactory.getUser(type, username)));
 		}
 		return (Hashtable<String, ? extends User>) userInstanceDatabase;
 

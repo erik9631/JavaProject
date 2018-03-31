@@ -46,6 +46,23 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 		addMouseWheelListener(this);
 	}
 	
+	private int findMaxY()
+	{
+		int largest = 0;
+		for(int i = 0; i < originalY.length; i++)
+		{
+			if(i != 0)
+			{
+				if(originalY[i] > originalY[largest])
+					largest = i;
+			}
+			else
+				largest = i;
+		}
+		return largest;
+			
+	}
+	
 	private void updateScrollbar(int updateVal)
 	{
 		if(originalY == null)
@@ -53,7 +70,11 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 			originalY = new int[getComponents().length];
 			for(int i = 0; i < getComponents().length; i++)
 				originalY[i] = getComponents()[i].getY();
+			int maxY = findMaxY();
+			setPreferredSize(new Dimension(getWidth(), originalY[maxY] + getComponents()[maxY].getWidth()));
+
 		}
+		
 
 		
 		Component[] components = getComponents();
@@ -74,8 +95,6 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 		percent = scrollbar.getValue() + scrollbar.getModel().getExtent();
 		
 		percent = (int) (getPreferredSize().getHeight() * (percent / 100));
-		
-		
 		updateScrollbar((int)percent);
 	}
 	
