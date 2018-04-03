@@ -6,12 +6,15 @@ import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -27,6 +30,7 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 	int[] originalY;
 	public ScrollAppPanel(int width, int height, Color color, Object owner)
 	{
+
 		this.owner = owner;
 		AppController.getAppPanel().add(this);
 		setSize(width, height);
@@ -63,22 +67,28 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 			
 	}
 	
+	
+	public void updateComponents()
+	{
+		originalY = new int[getComponents().length];
+		for(int i = 0; i < getComponents().length; i++)
+		{
+			originalY[i] = getComponents()[i].getY();
+			//System.out.println("Y: " + originalY[i]);
+		}
+		int maxY = findMaxY();
+		setPreferredSize(new Dimension(getWidth(), originalY[maxY] + getComponents()[maxY].getWidth()));
+	}
+	
 	private void updateScrollbar(int updateVal)
 	{
-		if(originalY == null)
-		{
-			originalY = new int[getComponents().length];
-			for(int i = 0; i < getComponents().length; i++)
-				originalY[i] = getComponents()[i].getY();
-			int maxY = findMaxY();
-			setPreferredSize(new Dimension(getWidth(), originalY[maxY] + getComponents()[maxY].getWidth()));
-
-		}
-		
-
 		
 		Component[] components = getComponents();
+	
 		
+		if(originalY == null)
+			return;
+
 		for(int i = 0; i < components.length; i++)
 		{
 			if(components[i] instanceof JScrollBar)
@@ -97,10 +107,6 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 		percent = (int) (getPreferredSize().getHeight() * (percent / 100));
 		updateScrollbar((int)percent);
 	}
-	
-	/*
-	 * TODO
-	 * Add scrollbar when possible
-	 */
+
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import backend.events.LoadLayerHandler;
+import backend.menu.LogonEvent;
+import backend.menu.LogonHandler;
 import backend.menu.TopMenuBar;
 import backend.menu.WriteField;
 import frontend.MainFrame;
@@ -29,9 +31,7 @@ public class Scene
 		
 		Hashtable<String, Student>instanceDatabase = (Hashtable<String, Student>) database.instanciateSubDatabase("Students", "STUDENT");
 		System.out.println(instanceDatabase.get("Jason").getPassword());
-		
-		instanceDatabase.get("Jason").sendMessage("Go fuck yourself");
-		
+			
 		
 		
 		
@@ -43,6 +43,8 @@ public class Scene
 		
 			// Layer 1
 		TopMenuBar menuBar = new TopMenuBar(0, 0, 0, 2);
+		MessageBox box = new MessageBox(false, 1);
+		box.setPosition(100, 100);
 		
 			// Layer 2
 		Test test = new Test(false, 2);
@@ -86,6 +88,7 @@ public class Scene
 			{
 				UserDatabase.currentUser = instanceDatabase.get(username.getText());
 				LoadLayerHandler.loadLayer(1);
+				LogonHandler.notifySubscribers();
 				System.out.println("Logged in as " + UserDatabase.currentUser);
 			}
 

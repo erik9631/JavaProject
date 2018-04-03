@@ -66,6 +66,8 @@ public class Test extends BaseItem
 		question.setParent(panel);
 		questions.add(question);
 		updatePositions();
+		panel.updateComponents();
+		
 	}
 	
 	private void updatePositions()

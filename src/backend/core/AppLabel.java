@@ -1,5 +1,6 @@
 package backend.core;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import frontend.TextLabel;
@@ -9,7 +10,7 @@ public class AppLabel extends BaseItem
 
 	TextLabel label;
 	
-	public AppLabel(boolean blackListed, JPanel panel, int ... layers)
+	public AppLabel(boolean blackListed, JComponent panel, int ... layers)
 	{
 		super(layers, blackListed);
 		label = createGuiComponent(new TextLabel(panel));

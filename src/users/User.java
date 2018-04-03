@@ -72,6 +72,11 @@ public abstract class User implements CsvSerializable
 		}
 	}
 	
+	public ArrayList<String> getMessages()
+	{
+		return messages;
+	}
+	
 	public String getUserName()
 	{
 		return username;

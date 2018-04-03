@@ -26,11 +26,6 @@ public class BackEndRadioButton extends BaseItem
 		radioButton.setRelativePos(x, y);
 	}
 	
-	public void isVisible()
-	{
-		System.out.println(guiComponent.isVisible());
-	}
-	
 	public void setText(String text)
 	{
 		radioButton.setText(text);

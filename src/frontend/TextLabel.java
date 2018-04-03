@@ -3,6 +3,7 @@ package frontend;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,7 +15,7 @@ public class TextLabel extends JLabel implements ResponsiveComponent
 	int fontSize;
 	String text = "asdasdasd";
 	
-	public TextLabel(JPanel panel)
+	public TextLabel(JComponent panel)
 	{
 		panel.add(this);
 		manager = new ComponentResponsibilityManager(this);

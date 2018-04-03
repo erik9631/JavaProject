@@ -3,6 +3,8 @@ package backend.core;
 import java.awt.Component;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
+
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
 
@@ -10,7 +12,7 @@ public class BaseItem extends DefinedBehavior implements LoadLayerEvent
 {
 	protected ArrayList<Integer>layers;
 	protected boolean blackListed;
-	protected Component guiComponent;
+	private JComponent guiComponent;
 	
 	protected BaseItem(int[] layers, boolean blackListed)
 	{
@@ -20,7 +22,7 @@ public class BaseItem extends DefinedBehavior implements LoadLayerEvent
 		LoadLayerHandler.subscribe(this);
 	}
 	
-	protected <T extends Component> T createGuiComponent(T component)
+	protected <T extends JComponent> T createGuiComponent(T component)
 	{
 		guiComponent = component;
 		return component;

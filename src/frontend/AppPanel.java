@@ -24,7 +24,6 @@ public class AppPanel extends JPanel implements ComponentInformer
 		MainFrame.subscribe(this);
 		setSize(width, height);
 		setLayout(null);
-		setVisible(true);
 		setBackground(color);
 	}
 	
