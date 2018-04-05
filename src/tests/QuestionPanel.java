@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 import backend.core.AppLabel;
 import backend.core.BackEndRadioButton;
@@ -55,15 +56,12 @@ public class QuestionPanel extends BaseItem
 		radioButtons[3].setPosition(50,110);
 	}
 	
-	public ButtonModel getSelection()
+	public BackEndRadioButton getSelection()
 	{
-		return group.getSelection();
-	}
-	
-	public ArrayList<AbstractButton> getButtons()
-	{
-		ArrayList<AbstractButton> buttons = Collections.list(group.getElements());
-		return buttons;
+		for(BackEndRadioButton i : radioButtons)
+			if(i.isSelected())
+				return i;
+		return null;
 	}
 	
 	public void setParent(JComponent panel)
@@ -87,10 +85,11 @@ public class QuestionPanel extends BaseItem
 		this.correctAnswer = correctAnswer;
 	}
 	
-	public ButtonModel getCorrectAnswer()
+	public boolean isCorrect()
 	{
-		ArrayList<AbstractButton> buttons = Collections.list(group.getElements());
-		return buttons.get(correctAnswer).getModel();
+		if(radioButtons[correctAnswer].equals(getSelection()))
+			return true;
+		return false;
 	}
 	
 	public void setPosition(int x, int y)

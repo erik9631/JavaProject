@@ -2,11 +2,9 @@ package backend.core;
 
 import javax.swing.ButtonGroup;
 
-import org.omg.PortableServer.ServantRetentionPolicyOperations;
 
 import frontend.AppPanel;
 import frontend.AppRadioButton;
-import frontend.LabelButton;
 import frontend.TextLabel;
 
 public class BackEndRadioButton extends BaseItem
@@ -21,9 +19,19 @@ public class BackEndRadioButton extends BaseItem
 		group.add(radioButton);
 	}
 	
+	public boolean isSelected()
+	{
+		return radioButton.isSelected();
+	}
+	
 	public void setPosition(int x, int y)
 	{
 		radioButton.setRelativePos(x, y);
+	}
+	
+	public String getText()
+	{
+		return radioButton.getText();
 	}
 	
 	public void setText(String text)

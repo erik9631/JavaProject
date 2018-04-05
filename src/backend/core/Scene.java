@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import backend.events.LoadLayerHandler;
+import backend.events.UserEventHandler;
 import backend.menu.LogonEvent;
 import backend.menu.LogonHandler;
 import backend.menu.TopMenuBar;
@@ -28,9 +29,10 @@ public class Scene
 		CsvSerializer<Student> csvserializer = new CsvSerializer<Student>();
 		UserDatabase database = new UserDatabase();
 		database.AddSubDatabase("Students", csvserializer.loadDatabase("Students.csv"));
+		System.out.println(database.getSubDatabase("Students"));
 		
 		Hashtable<String, Student>instanceDatabase = (Hashtable<String, Student>) database.instanciateSubDatabase("Students", "STUDENT");
-		System.out.println(instanceDatabase.get("Jason").getPassword());
+		//System.out.println(instanceDatabase.get("Jason").getPassword());
 			
 		
 		
@@ -49,26 +51,31 @@ public class Scene
 			// Layer 2
 		Test test = new Test(false, 2);
 		QuestionPanel question1 = new QuestionPanel(false, 2);
-		question1.setQuestion("What language do you like?");
-		question1.setAnswers("C#", "Java", "C", "C++");
-		question1.setCorrectAnswer(0);
+		question1.setQuestion("Triedy v jazyku C++ majú pôvod v mechanizme: ");
+		question1.setAnswers("Union", "Struct", "Template", "Enum");
+		question1.setCorrectAnswer(1);
 		
 		QuestionPanel question2 = new QuestionPanel(false, 2);
-		question2.setQuestion("How much is 2+2?");
-		question2.setAnswers("4", "7", "2", "8");
-		question2.setCorrectAnswer(0);
+		question2.setQuestion("Co v jazyku C# zodpoveda pristupovym metodam v jazyku Java");
+		question2.setAnswers("Setter", "Delegate", "Accessor", "Property");
+		question2.setCorrectAnswer(2);
 
 		
 		QuestionPanel question3 = new QuestionPanel(false, 2);
-		question3.setQuestion("Are static methods useful in OOP based languages?");
-		question3.setAnswers("Yes", "They are useful only in certian situations", "They are useless", "They should be used all the time");
-		question2.setCorrectAnswer(0);
+		question3.setQuestion("Co v jazyku C++ umoznuje emulovat spravanie rozhrani v jazyku java");
+		question3.setAnswers("Virtualne metody", "Abstraktne triedy", "Namespace", "Ine");
+		question3.setCorrectAnswer(1);
+
+		QuestionPanel question4 = new QuestionPanel(false, 2);
+		question4.setQuestion("Zachytenie výnimky v Jave");
+		question4.setAnswers("automaticky opravuje vzniknutú chybu", "ohrozuje integritu programu", "automaticky zastavuje program", "umožňuje jej spracovanie a pokračovanie v programe");
+		question4.setCorrectAnswer(3);
 
 		
 		test.addQuestion(question1);
 		test.addQuestion(question2);
 		test.addQuestion(question3);
-		
+		test.addQuestion(question4);
 		//Properties
 			// Layer 0
 		login.setFontSize(20);
@@ -90,6 +97,7 @@ public class Scene
 				LoadLayerHandler.loadLayer(1);
 				LogonHandler.notifySubscribers();
 				System.out.println("Logged in as " + UserDatabase.currentUser);
+				UserEventHandler.notifyLogon();
 			}
 
 		});

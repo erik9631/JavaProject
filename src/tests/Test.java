@@ -13,8 +13,11 @@ import backend.core.AppButton;
 import backend.core.AppController;
 import backend.core.BaseItem;
 import backend.core.DefinedBehavior;
+import backend.core.MessageBox;
+import backend.core.UserDatabase;
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
+import backend.events.UserEventHandler;
 import frontend.AppPanel;
 import frontend.LabelButton;
 import frontend.ScrollAppPanel;
@@ -26,7 +29,7 @@ public class Test extends BaseItem
 	private ScrollAppPanel panel;
 	private AppButton evaluateButton;
 	private AppButton backButton;
-	private int correct;
+	private float correct;
 
 	private Runnable onExitAction;
 	
@@ -51,7 +54,7 @@ public class Test extends BaseItem
 		evaluateButton.getActions().setOnClickAction(this::evaluate);
 		backButton.getActions().setOnClickAction(()->
 		{
-			LoadLayerHandler.loadLayer(0);
+			LoadLayerHandler.loadLayer(1);
 		});
 
 	}
@@ -78,7 +81,7 @@ public class Test extends BaseItem
 			i.setPosition(20, ((i.getHeight() + spaceSize) * counter) + 5);
 			counter++;
 		}
-		evaluateButton.setPos(20, ( (questions.size()) * questions.get(0).getHeight() ) + (spaceSize * 2));
+		evaluateButton.setPos(20, ( (questions.size()) * questions.get(0).getHeight() ) + (spaceSize * questions.size()));
 		backButton.setPos(evaluateButton.getPosX(), evaluateButton.getPosY() + spaceSize);
 		System.out.println(panel.getPreferredSize());
 	}
@@ -86,10 +89,13 @@ public class Test extends BaseItem
 	private void evaluate()
 	{
 		for(QuestionPanel i : questions)
-			if(i.getSelection().equals(i.getCorrectAnswer()))
+			if(i.isCorrect() == true)
 				correct++;
-		System.out.println("Correct answers:" + correct);
+		UserDatabase.currentUser.sendMessage("Uspesnost testu: " + ( correct / (float)questions.size()) * 100 );
+		System.out.println(correct / (float)questions.size() * 100);
+		UserEventHandler.notifyTestComplete();
 		correct = 0;
+		//UserDatabase.currentUser.s
 	}
 	
 }

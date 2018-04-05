@@ -3,11 +3,13 @@ package backend.core;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import backend.events.UserEvent;
+import backend.events.UserEventHandler;
 import backend.menu.LogonEvent;
 import backend.menu.LogonHandler;
 import frontend.ScrollAppPanel;
 
-public class MessageBox extends BaseItem implements LogonEvent
+public class MessageBox extends BaseItem implements UserEvent
 {
 	ScrollAppPanel panel;
 
@@ -15,7 +17,7 @@ public class MessageBox extends BaseItem implements LogonEvent
 	{
 		super(layers, blackListed);
 		panel = createGuiComponent(new ScrollAppPanel(600, 400, Color.white, this));
-		LogonHandler.subscribe(this);
+		UserEventHandler.subscribe(this);
 	}
 	
 	public void loadMessages()
@@ -41,22 +43,27 @@ public class MessageBox extends BaseItem implements LogonEvent
 		panel.updateComponents();
 	}
 	
+	public void updateMessages()
+	{
+		panel.removeAll();
+		loadMessages();
+	}
+	
 	public void setPosition(int x, int y)
 	{
 		panel.setLocation(x, y);
 	}
 
 	@Override
-	public void onLogon()
+	public void onTestCompleted()
 	{
-		loadMessages();
+		updateMessages();
 	}
 
 	@Override
-	public void onLogout()
+	public void onLogOn()
 	{
-		// TODO Auto-generated method stub
-		
+		updateMessages();
 	}
 
 }
