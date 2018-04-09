@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 import backend.events.UserEvent;
 import backend.events.UserEventHandler;
-import backend.menu.LogonEvent;
-import backend.menu.LogonHandler;
+
 import frontend.ScrollAppPanel;
 
 public class MessageBox extends BaseItem implements UserEvent
@@ -52,6 +51,7 @@ public class MessageBox extends BaseItem implements UserEvent
 	public void setPosition(int x, int y)
 	{
 		panel.setLocation(x, y);
+		notifyOnMove();
 	}
 
 	@Override

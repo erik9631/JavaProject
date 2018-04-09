@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import backend.events.ComponentEvent;
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
 
@@ -13,13 +14,31 @@ public class BaseItem extends DefinedBehavior implements LoadLayerEvent
 	protected ArrayList<Integer>layers;
 	protected boolean blackListed;
 	private JComponent guiComponent;
+	protected ArrayList<ComponentEvent> componentSubscribers;
+	
+	public JComponent getGuiComponent()
+	{
+		return guiComponent;
+	}
 	
 	protected BaseItem(int[] layers, boolean blackListed)
 	{
 		this.layers =  new ArrayList<Integer>();
+		componentSubscribers = new ArrayList<>();
 		addToList(layers);
 		this.blackListed = blackListed;
 		LoadLayerHandler.subscribe(this);
+	}
+	
+	public void subscribe(ComponentEvent subscriber)
+	{
+		componentSubscribers.add(subscriber);
+	}
+	
+	protected void notifyOnMove()
+	{
+		for(ComponentEvent i : componentSubscribers)
+			i.onComponentMoved();
 	}
 	
 	protected <T extends JComponent> T createGuiComponent(T component)

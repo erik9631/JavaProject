@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.ScrollPane;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.awt.event.MouseEvent;
@@ -23,7 +25,7 @@ import javax.swing.Scrollable;
 
 import backend.core.AppController;
 
-public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
+public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, ComponentListener
 {
 	Object owner;
 	JScrollBar scrollbar;
@@ -83,12 +85,11 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 	private void updateScrollbar(int updateVal)
 	{
 		
-		Component[] components = getComponents();
-	
+		Component[] components = getComponents();	
 		
 		if(originalY == null)
-			return;
-
+			updateComponents();
+		
 		for(int i = 0; i < components.length; i++)
 		{
 			if(components[i] instanceof JScrollBar)
@@ -108,5 +109,31 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener
 		updateScrollbar((int)percent);
 	}
 
+	@Override
+	public void componentHidden(ComponentEvent arg0)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent arg0)
+	{
+		updateComponents();
+	}
+
+	@Override
+	public void componentResized(ComponentEvent arg0)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentShown(ComponentEvent arg0)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 }

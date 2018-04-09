@@ -121,6 +121,19 @@ public class CsvSerializer<T extends User>
 		
 	}
 	
+	/*
+	 * 
+	 * TODO
+	 * Make key modifiable
+	 * 
+	 */
+	
+	
+	/*
+	 * 
+	 * Make own CSV serializer using reflection
+	 */
+	
 	public Hashtable<String, ArrayList<String>> loadDatabase(String filename)
 	{
 		//Load usernames

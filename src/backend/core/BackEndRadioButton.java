@@ -27,6 +27,7 @@ public class BackEndRadioButton extends BaseItem
 	public void setPosition(int x, int y)
 	{
 		radioButton.setRelativePos(x, y);
+		notifyOnMove();
 	}
 	
 	public String getText()

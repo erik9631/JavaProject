@@ -19,6 +19,7 @@ public class AppLabel extends BaseItem
 	public void setPosition(int x, int y)
 	{
 		label.setRelativePos(x, y);
+		notifyOnMove();
 	}
 	
 	public void setSize(int size)

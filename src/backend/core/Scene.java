@@ -5,8 +5,6 @@ import java.util.Hashtable;
 
 import backend.events.LoadLayerHandler;
 import backend.events.UserEventHandler;
-import backend.menu.LogonEvent;
-import backend.menu.LogonHandler;
 import backend.menu.TopMenuBar;
 import backend.menu.WriteField;
 import frontend.MainFrame;
@@ -27,6 +25,8 @@ public class Scene
 		 * 
 		 */
 		CsvSerializer<Student> csvserializer = new CsvSerializer<Student>();
+		csvserializer.loadDatabase("Students");
+		
 		UserDatabase database = new UserDatabase();
 		database.AddSubDatabase("Students", csvserializer.loadDatabase("Students.csv"));
 		System.out.println(database.getSubDatabase("Students"));
@@ -95,14 +95,13 @@ public class Scene
 			{
 				UserDatabase.currentUser = instanceDatabase.get(username.getText());
 				LoadLayerHandler.loadLayer(1);
-				LogonHandler.notifySubscribers();
 				System.out.println("Logged in as " + UserDatabase.currentUser);
 				UserEventHandler.notifyLogon();
 			}
 
 		});
 		
-		LoadLayerHandler.loadLayer(0);	
+		LoadLayerHandler.loadLayer(0);
 	}
 
 }

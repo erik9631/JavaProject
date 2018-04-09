@@ -1,5 +1,6 @@
 package tests;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import javax.print.attribute.standard.Finishings;
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JScrollBar;
 
 import backend.core.AppButton;
@@ -67,9 +69,13 @@ public class Test extends BaseItem
 	public void addQuestion(QuestionPanel question)
 	{
 		question.setParent(panel);
+		
+		for(Component i : question.getGuiComponent().getComponents())
+		{
+			i.addComponentListener(panel);
+		}
 		questions.add(question);
 		updatePositions();
-		panel.updateComponents();
 		
 	}
 	

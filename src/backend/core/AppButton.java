@@ -126,6 +126,7 @@ public class AppButton extends BaseItem implements Clickable
 	public void setPos(int x, int y)
 	{
 		guiButton.setRelativePos(x, y);
+		notifyOnMove();
 	}
 	
 	@Override
