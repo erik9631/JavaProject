@@ -6,7 +6,9 @@ import frontend.AppPanel;
 import frontend.MainFrame;
 
 public class AppController
-{	
+{	/*
+	* Aplikacny kontroler drzi v sebe scene a vsetky nutne globalne premenne
+ 	*/
 	private static MainFrame frame;
 	private static AppPanel panel;
 	private static ArrayList<DefinedBehavior> scene = new ArrayList<DefinedBehavior>();
@@ -36,7 +38,7 @@ public class AppController
 		return scene.size();
 	}
 	
-	public static <T> T getByTag(String tag)
+	public static <T> T getByTag(String tag) // Najdenie triedy podla tagu
 	{
 		for(DefinedBehavior i : scene)
 			if(i.hasTag(tag))

@@ -16,6 +16,11 @@ public class BaseItem extends DefinedBehavior implements LoadLayerEvent
 	private JComponent guiComponent;
 	protected ArrayList<ComponentEvent> componentSubscribers;
 	
+	/*
+	 * Hlavna trieda pre vsetky prvky v back ende.
+	 * Tu sa riesi vrstvovanie (Sceny)
+	 */
+	
 	public JComponent getGuiComponent()
 	{
 		return guiComponent;
@@ -35,13 +40,13 @@ public class BaseItem extends DefinedBehavior implements LoadLayerEvent
 		componentSubscribers.add(subscriber);
 	}
 	
-	protected void notifyOnMove()
+	protected void notifyOnMove() // Funkcia je aboslutna. Zmazanie nevyhnutne v dalsej verzii programu
 	{
 		for(ComponentEvent i : componentSubscribers)
 			i.onComponentMoved();
 	}
 	
-	protected <T extends JComponent> T createGuiComponent(T component)
+	protected <T extends JComponent> T createGuiComponent(T component) // Vytvorenie front end reprezentacie daneho objektu
 	{
 		guiComponent = component;
 		return component;

@@ -14,6 +14,9 @@ public class TextLabel extends JLabel implements ResponsiveComponent
 	int width, height;
 	int fontSize;
 	String text = "asdasdasd";
+	/*
+	 * Front end reprezentacia textoveho okna
+	 */
 	
 	public TextLabel(JComponent panel)
 	{

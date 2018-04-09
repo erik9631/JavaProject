@@ -11,6 +11,9 @@ import frontend.ScrollAppPanel;
 public class MessageBox extends BaseItem implements UserEvent
 {
 	ScrollAppPanel panel;
+	/*
+	 * Trieda ktora sluzi na zobrazovanie sprav. 
+	 */
 
 	public MessageBox(boolean blackListed, int ... layers)
 	{
@@ -19,8 +22,8 @@ public class MessageBox extends BaseItem implements UserEvent
 		UserEventHandler.subscribe(this);
 	}
 	
-	public void loadMessages()
-	{
+	public void loadMessages() // Nacitavanie a zobrazovanie sprav pre prihlaseneho uzivatela
+	{						   // Refaktoring je nevyhnutny. Je nutne abstraktizovat moznosti nacitavania
 		int[] layers = new int[getLayers().size()];
 		int counter = 0;
 		for(Integer j : getLayers())
@@ -44,7 +47,7 @@ public class MessageBox extends BaseItem implements UserEvent
 	
 	public void updateMessages()
 	{
-		panel.removeAll();
+		panel.removeAll(); // Zmazanie straych sprav a vypisanie novych
 		loadMessages();
 	}
 	
@@ -55,13 +58,13 @@ public class MessageBox extends BaseItem implements UserEvent
 	}
 
 	@Override
-	public void onTestCompleted()
+	public void onTestCompleted() // Observer visitor pattern. Pri notifikacii obnovime spravy
 	{
 		updateMessages();
 	}
 
 	@Override
-	public void onLogOn()
+	public void onLogOn() // Podobne aj tu
 	{
 		updateMessages();
 	}

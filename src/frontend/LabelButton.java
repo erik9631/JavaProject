@@ -18,11 +18,14 @@ public class LabelButton extends JLabel implements MouseListener, ResponsiveComp
 {
 	private String text;
 	
-	private ComponentResponsibilityManager componentManager;
+	private ComponentResponsibilityManager componentManager; 
 	private boolean entered = false;
 	private int size;
 	private Clickable clickable;
 	int relativeX, relativeY;
+	/*
+	 * Front end reprezentacia textoveho tlacidla
+	 */
 	public LabelButton(Clickable obj)
 	{
 		componentManager = new ComponentResponsibilityManager(this);

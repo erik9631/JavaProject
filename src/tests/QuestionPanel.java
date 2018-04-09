@@ -26,6 +26,9 @@ public class QuestionPanel extends BaseItem
 	private int correctAnswer;
 	
 	BackEndRadioButton[] radioButtons;
+	/*
+	 * Otazkovy panel ktory ma 4 otazky.
+	 */
 	
 
 	
@@ -56,7 +59,7 @@ public class QuestionPanel extends BaseItem
 		radioButtons[3].setPosition(50,110);
 	}
 	
-	public BackEndRadioButton getSelection()
+	public BackEndRadioButton getSelection() // Ziskanie vybranej otazky
 	{
 		for(BackEndRadioButton i : radioButtons)
 			if(i.isSelected())
@@ -64,17 +67,17 @@ public class QuestionPanel extends BaseItem
 		return null;
 	}
 	
-	public void setParent(JComponent panel)
+	public void setParent(JComponent panel) // Nastavenie vlastnika otazky
 	{
 		testPanel.setParent(panel);
 	}
 	
-	public void setQuestion(String text)
+	public void setQuestion(String text) // Nastavenie otazky
 	{
 		label.setText(text, -1);
 	}
 	
-	public void setAnswers(String ... text)
+	public void setAnswers(String ... text) // Nastavenie odpovedi
 	{
 		for(int i = 0; i < 4; i++)
 			radioButtons[i].setText(text[i]);
@@ -85,7 +88,7 @@ public class QuestionPanel extends BaseItem
 		this.correctAnswer = correctAnswer;
 	}
 	
-	public boolean isCorrect()
+	public boolean isCorrect() // Vyhodnotenie spravnosti odpovede
 	{
 		if(radioButtons[correctAnswer].equals(getSelection()))
 			return true;

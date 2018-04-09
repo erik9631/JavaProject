@@ -7,6 +7,10 @@ import users.User;
 
 public class Course
 {
+	/*
+	 * Kurz obsahujuci instruktora, studentov, testy a kurikula
+	 * Vyuzitie agregacie.
+	 */
 	private ArrayList<User> users;
 	private ArrayList<Test> tests;
 	

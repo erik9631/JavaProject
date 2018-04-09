@@ -10,6 +10,9 @@ import frontend.AppTextField;
 public class WriteField extends BaseItem implements LoadLayerEvent
 {
 	private AppTextField field;
+	/*
+	 * Back end reprezentacia textFieldu
+	 */
 	public WriteField(boolean blackListed, int... layers)
 	{
 		super(layers, blackListed);

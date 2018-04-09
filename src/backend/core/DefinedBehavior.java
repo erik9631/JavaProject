@@ -3,6 +3,10 @@ package backend.core;
 import java.util.ArrayList;
 public class DefinedBehavior
 {
+	/*
+	 * Super trieda celeho programu. Kazdy instanciovatelny prvok z neho musi dedit
+	 * Tu riesime tagovanie a pridavanie do hlavnej sceny
+	 */
 	public static ArrayList<String> tags = new ArrayList<String>();;
 	public static DefinedBehavior last;
 	public DefinedBehavior()

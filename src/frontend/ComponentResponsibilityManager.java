@@ -11,19 +11,23 @@ public class ComponentResponsibilityManager implements ComponentInformer
 	public boolean canSetRelativeWidth = false;
 	private float sizeMultiplier = 0.70f;
 	
+	/*
+	 * Manazer ktory riesi responsibilitu grafickych prvkov aplikacie
+	 */
+	
 	public ComponentResponsibilityManager(ResponsiveComponent component)
 	{
-		MainFrame.subscribe(this);
+		MainFrame.subscribe(this); // Je visitorom hlavneho okna a reaguje na zmenu
 		component.getFontText();
 		this.component = component;
 	}
 	
 	public void setSizeMultiplier(float multiplier)
 	{
-		sizeMultiplier = multiplier;
+		sizeMultiplier = multiplier; // Percentualna tolerancia na zmenu vo velkosti (Sluzi na jemne ladenie)
 	}
 	
-	public void setFontStyle(Color color, int style)
+	public void setFontStyle(Color color, int style) // Nastavenie stylu fontu cez html a css
 	{
 		component.setForeground(color);
 		switch(style)
@@ -44,7 +48,7 @@ public class ComponentResponsibilityManager implements ComponentInformer
 		}
 	}
 	
-	public void setFontSize(int size)
+	public void setFontSize(int size) // nastavenie velkosti fontu. Cez stringbuilder upravujeme html
 	{
 		//Sets html font size using string builder and updates the display
 		component.setSize((int) ( (component.getFontSize() * component.getFontText().length()) * sizeMultiplier ), component.getFontSize() * 2);
@@ -66,21 +70,21 @@ public class ComponentResponsibilityManager implements ComponentInformer
 			setRelativeWidth();
 	}
 	
-	public void setRelativePos()
+	public void setRelativePos() // Nastavenie relativnej pozicie zavisiac od originalnej
 	{
 		float frameHeight = AppController.getMainFrame().getHeight();
 		float frameWidth = AppController.getMainFrame().getWidth();
 		component.setLocation((int) ( (frameWidth/800) * component.getPosX() ), (int)( (frameHeight/600) * component.getPosY() ) );
 	}
 	
-	public void setRelativeWidth()
+	public void setRelativeWidth() // Nastavenie relativnej sirky zavisiac od originalnej
 	{
 		float frameWidth = AppController.getMainFrame().getWidth();
 		
 		component.setSize( (int) ((frameWidth/800) * component.getOriginSize().width), component.getOriginSize().height);
 	}
 	
-	public void setRelativeHeight()
+	public void setRelativeHeight() // Nastavenie relativnej vysky zavisiac od originalnej
 	{
 		float frameHeight = AppController.getMainFrame().getHeight();
 		

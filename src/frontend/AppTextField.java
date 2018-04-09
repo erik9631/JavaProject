@@ -8,7 +8,10 @@ import backend.core.AppController;
 public class AppTextField extends JTextField implements ResponsiveComponent
 {
 	int relativeX, relativeY;
-	ComponentResponsibilityManager manager;
+	ComponentResponsibilityManager manager; // Manazer ktory vykonava prisposobovanie komponentov k velkosti okna
+	/*
+	 * Front end reprezentacia textfieldu
+	 */
 	public AppTextField()
 	{
 		manager = new ComponentResponsibilityManager(this);

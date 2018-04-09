@@ -34,6 +34,9 @@ public class Test extends BaseItem
 	private float correct;
 
 	private Runnable onExitAction;
+	/*
+	 * Samotny test obsahujuci otazky
+	 */
 	
 	
 	
@@ -66,7 +69,7 @@ public class Test extends BaseItem
 		onExitAction = action;
 	}
 	
-	public void addQuestion(QuestionPanel question)
+	public void addQuestion(QuestionPanel question) // Pridanie novej otazky
 	{
 		question.setParent(panel);
 		
@@ -79,7 +82,7 @@ public class Test extends BaseItem
 		
 	}
 	
-	private void updatePositions()
+	private void updatePositions() // Nastavenie pozicii otazok. Riesene dynamicky podla poctu otazok
 	{
 		int counter = 0;
 		for(QuestionPanel i : questions)
@@ -92,7 +95,7 @@ public class Test extends BaseItem
 		System.out.println(panel.getPreferredSize());
 	}
 	
-	private void evaluate()
+	private void evaluate() // Vyhodnotenie testu
 	{
 		for(QuestionPanel i : questions)
 			if(i.isCorrect() == true)

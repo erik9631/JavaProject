@@ -16,7 +16,11 @@ public class CsvSerializer<T extends User>
 	 * 
 	 */
 	
-	private String readColumRow(int colum, int row, String filename) throws IOException
+	/*
+	 * CSV Serializer. Umoznuje zapis a citanie objektov do csv suboru.
+	 */
+	
+	private String readColumRow(int colum, int row, String filename) throws IOException // Citanie riadkov a stlpcov
 	{
 		colum++;
 		FileReader reader = new FileReader(filename);
@@ -67,7 +71,7 @@ public class CsvSerializer<T extends User>
 
 	}
 	
-	public int findInRow(String filename, String value, int row)
+	public int findInRow(String filename, String value, int row) // Najdenie vlastnosti v danom riadku
 	{
 		String content = "";
 		try
@@ -86,7 +90,7 @@ public class CsvSerializer<T extends User>
 		}
 	}
 	
-	public int findInColum(String filename, String value, int colum)
+	public int findInColum(String filename, String value, int colum) // Najdenie vlastnosti v danom stplci
 	{
 
 		String content = "";
@@ -107,7 +111,7 @@ public class CsvSerializer<T extends User>
 	}
 	
 	
-	private void saveProperties(T user, String filename) throws IOException
+	private void saveProperties(T user, String filename) throws IOException // Ulozenie vlastnosti do csv
 	{	
 		if(findInColum(filename, user.getUserName(), 1) != -1)
 		{
@@ -134,7 +138,7 @@ public class CsvSerializer<T extends User>
 	 * Make own CSV serializer using reflection
 	 */
 	
-	public Hashtable<String, ArrayList<String>> loadDatabase(String filename)
+	public Hashtable<String, ArrayList<String>> loadDatabase(String filename) // Nacitanie suboru a vratenie v tvare hasovacej tabulky
 	{
 		//Load usernames
 		Hashtable<String, ArrayList<String>> Database = new Hashtable<String, ArrayList<String>>();
@@ -173,7 +177,7 @@ public class CsvSerializer<T extends User>
 		
 	}
 	
-	public int findMatchingProperties(int[] colums, String[] properties, String filename)
+	public int findMatchingProperties(int[] colums, String[] properties, String filename) // Najdi shodujuce sa vlastnoti v danom stlpci
 	{
 		int row = -1;
 		for(int i : colums)

@@ -9,12 +9,19 @@ public class AppLabel extends BaseItem
 {
 
 	TextLabel label;
-	
-	public AppLabel(boolean blackListed, JComponent panel, int ... layers)
+	/*
+	 * 
+	 * Reprezentacia textu v backende. Tu sa odohrava logika
+	 * 
+	 */
+	public AppLabel(boolean blackListed, JComponent panel, int ... layers) // Konstruktor
 	{
 		super(layers, blackListed);
 		label = createGuiComponent(new TextLabel(panel));
 	}
+	/*
+	 * Ostatne metody su settery.
+	 */
 	
 	public void setPosition(int x, int y)
 	{

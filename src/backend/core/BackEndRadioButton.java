@@ -11,8 +11,11 @@ public class BackEndRadioButton extends BaseItem
 {
 	TextLabel label;
 	AppRadioButton radioButton;
+	/*
+	 * Back end reprezentacia radioButtonu. Tu sa odohrava logika
+	 */
 
-	public BackEndRadioButton(boolean blackListed, AppPanel panel ,ButtonGroup group,int ... layers)
+	public BackEndRadioButton(boolean blackListed, AppPanel panel ,ButtonGroup group,int ... layers) // Konstuktor
 	{
 		super(layers, blackListed);
 		radioButton = createGuiComponent(new AppRadioButton(panel));
@@ -26,7 +29,7 @@ public class BackEndRadioButton extends BaseItem
 	
 	public void setPosition(int x, int y)
 	{
-		radioButton.setRelativePos(x, y);
+		radioButton.setRelativePos(x, y); // Nastavenie relativnej pozicie pomocou componentManazeru
 		notifyOnMove();
 	}
 	

@@ -8,10 +8,14 @@ import javax.swing.JRadioButton;
 
 public class AppRadioButton extends JRadioButton implements ResponsiveComponent
 {
+	/*
+	 * Front end reprezentacia radio tlačidla
+	 */
+	
 	int relativeX, relativeY;
 	String text = "A";
 	int size = 12;
-	ComponentResponsibilityManager manager;
+	ComponentResponsibilityManager manager; // Manazer ktory vykonava prisposobovanie komponentov k velkosti okna
 	
 	public AppRadioButton(JPanel owner)
 	{

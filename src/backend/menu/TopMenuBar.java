@@ -15,7 +15,7 @@ import frontend.ResponsiveComponent;
 public class TopMenuBar extends BaseItem implements ResponsiveComponent
 {
 	/*
-	 * Make everything responsible to screen width and size
+	 * Horne lista tu su definovane vsetky tlacidla hlavneho menu
 	 * 
 	 */
 	
@@ -37,6 +37,7 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		panel = createGuiComponent(new AppPanel(originWidth, originHeight, Color.gray, this));
 		
 		//panel = new AppPanel(800, 30, Color.gray, this);
+		//Tvorba komponentov
 		LoadLayerHandler.subscribe(this);
 		AppButton curiculum = new AppButton("Curiculums", true, panel ,0);
 		AppButton tests = new AppButton("Tests", true, panel ,0);

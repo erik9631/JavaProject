@@ -16,6 +16,10 @@ public class MainFrame extends JFrame implements ComponentListener
 {
 	private int width, height;
 	private static ArrayList<ComponentInformer>subscribers = new ArrayList<>();
+	/*
+	 * Hlavne okno aplikacie.
+	 * Zaroven je aj observer kedze notifikuje objekty o zmene sirky a vysky
+	 */
 	
 	public static void subscribe(ComponentInformer subscriber)
 	{
@@ -24,14 +28,14 @@ public class MainFrame extends JFrame implements ComponentListener
 	
 	public MainFrame(int width, int height)
 	{
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Defaultna operacia po zruseni okna
 		this.width = width;
 		this.height = height;
 		setVisible(true);
 		setTitle("Cisco Project");
 		setSize(this.width, this.height);
 		setMinimumSize(new Dimension(this.width, this.height));
-		AppPanel panel = new AppPanel(width, height, Color.gray);
+		AppPanel panel = new AppPanel(width, height, Color.gray); // Hlavny panel aplikacie
 		add(panel);
 		addComponentListener(this);
 		new AppController(this, panel);

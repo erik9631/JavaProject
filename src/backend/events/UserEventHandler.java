@@ -1,7 +1,9 @@
 package backend.events;
 
 import java.util.ArrayList;
-
+/*
+ * Vsetky user eventy su handlovane tu. Prihlasovanie, ohdlasovanie, spustanie testov, kontrola znamok a podobne.
+ */
 public class UserEventHandler
 {
 	static private ArrayList<UserEvent> subscribers = new ArrayList<UserEvent>();

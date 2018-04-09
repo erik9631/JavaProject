@@ -12,6 +12,9 @@ import backend.core.Resizable;
 public class AppPanel extends JPanel implements ComponentInformer
 {
 	Object owner;
+	/*
+	 * Front end reprezentacia panelu. Obsahuje prevazne nastavenia vzhladu. Lgiku 
+	 */
 	public AppPanel(int width, int height, Color color)
 	{
 		if(AppController.getAppPanel() != null)

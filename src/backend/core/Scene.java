@@ -18,6 +18,11 @@ public class Scene
 {
 	public static void init()
 	{
+		/*
+		 * Nasa hlavna scena. Tu mame definovane vsetky objekty ktore sa realne zobrazia v programe
+		 * Dalsie rozdelenie sceny pri refaktoringu.
+		 * 
+		 */
 		new MainFrame(800 ,600);		
 		/*
 		 * New databse type of hash table

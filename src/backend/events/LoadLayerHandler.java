@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /*
  * 
  * OBSERVER PATTERN
+ * Nacitavanie scen. Trieda je staticka kedze nacitavanie scen je globalna zalezitost
  * 
  */
 
@@ -21,7 +22,7 @@ public final class LoadLayerHandler
 		subscribers.add(subscriber);
 	}
 	
-	public static final void loadLayer(int layer)
+	public static final void loadLayer(int layer) // Nacitavanie scen. Prejav polymorfizmu
 	{
 		for(LoadLayerEvent i : subscribers)
 		{

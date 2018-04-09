@@ -27,9 +27,13 @@ import backend.core.AppController;
 
 public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, ComponentListener
 {
+	/*
+	 * Panel ktory umoznuje posuvanie pomocou kurzora. 
+	 * Scrollbal sme implementovali sami
+	 */
 	Object owner;
 	JScrollBar scrollbar;
-	int[] originalY;
+	int[] originalY; // Originalna pozicia pridanych componentov
 	public ScrollAppPanel(int width, int height, Color color, Object owner)
 	{
 
@@ -52,7 +56,7 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 		addMouseWheelListener(this);
 	}
 	
-	private int findMaxY()
+	private int findMaxY() // Najdenie najnizsieho komponentu. Podla neho urcujeme spodny limit skrolovania
 	{
 		int largest = 0;
 		for(int i = 0; i < originalY.length; i++)
@@ -70,7 +74,7 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 	}
 	
 	
-	public void updateComponents()
+	public void updateComponents() // Pridanie alebo odobranie komponentov a nastavenie ich originalnej pozicie
 	{
 		originalY = new int[getComponents().length];
 		for(int i = 0; i < getComponents().length; i++)
@@ -82,13 +86,13 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 		setPreferredSize(new Dimension(getWidth(), originalY[maxY] + getComponents()[maxY].getWidth()));
 	}
 	
-	private void updateScrollbar(int updateVal)
+	private void updateScrollbar(int updateVal) // Posun komponentov pri skrolovani
 	{
 		
 		Component[] components = getComponents();	
 		
 		if(originalY == null)
-			updateComponents();
+			updateComponents(); // Tato funckia bude zmazana v dalsej verzii programu a nahdradena observer/visitor
 		
 		for(int i = 0; i < components.length; i++)
 		{
@@ -99,7 +103,7 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 	}
 
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e)
+	public void mouseWheelMoved(MouseWheelEvent e) // Komponenty posuvane ak pohneme rollerom na mysi
 	{
 		float percent;
 		scrollbar.setValue(scrollbar.getValue() + e.getWheelRotation());
@@ -119,7 +123,7 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 	@Override
 	public void componentMoved(ComponentEvent arg0)
 	{
-		updateComponents();
+		updateComponents(); // Komponenty obnovime ak nastane zmena v pozicii
 	}
 
 	@Override

@@ -13,12 +13,16 @@ import frontend.MainFrame;
 
 public class AppButton extends BaseItem implements Clickable
 {
+	
+	/*
+	 * Back end reprezetacia tlacidla. Tu sa odohrava cela logika.
+	 */
 	private LabelButton guiButton;
 	private String text;
 	private Actions actions;
 	int fontSize = 18;
 	
-	public AppButton(String text, boolean blacklisted, int ... layers)
+	public AppButton(String text, boolean blacklisted, int ... layers) // Konstruktor
 	{
 		super(layers, blacklisted);
 		this.text = text;
@@ -30,7 +34,7 @@ public class AppButton extends BaseItem implements Clickable
 	 * TODO
 	 * Remove duplicite code
 	 */
-	public AppButton(String text, boolean blacklisted, JComponent panel ,int ... layers)
+	public AppButton(String text, boolean blacklisted, JComponent panel ,int ... layers) // Konstruktor
 	{
 		super(layers, blacklisted);
 		this.text = text;
@@ -40,7 +44,7 @@ public class AppButton extends BaseItem implements Clickable
 	}
 	
 	
-	public void setFontSize(int size)
+	public void setFontSize(int size) //Nastavenie velkosti fontu
 	{
 		guiButton.setFontSize(size);
 	}
@@ -72,7 +76,7 @@ public class AppButton extends BaseItem implements Clickable
 	}
 	
 	
-	public class Actions
+	public class Actions // Interna nested trieda ktora reprezentuje mozne akcie
 	{
 		private Runnable onClickAction;
 		private Runnable onPressAction;
@@ -123,26 +127,26 @@ public class AppButton extends BaseItem implements Clickable
 		
 	}
 	
-	public void setPos(int x, int y)
+	public void setPos(int x, int y) // Nastavenie pozicie a notifikovanie viewerov
 	{
 		guiButton.setRelativePos(x, y);
 		notifyOnMove();
 	}
 	
 	@Override
-	public void unloadLayer()
+	public void unloadLayer() // Odcitanie sceny
 	{
 		guiButton.setVisible(false);
 	}
 	
 	@Override
-	public void loadLayer()
+	public void loadLayer() // Nacitanie sceny
 	{
 		guiButton.setVisible(true);
 	}
 
 	@Override
-	public ArrayList<Integer> getLayers()
+	public ArrayList<Integer> getLayers() // Vrstvy na ktorych sa zobrazi alebo nezobrazi (Zavisiac od blacklisted)
 	{
 		return layers;
 	}
