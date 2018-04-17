@@ -83,6 +83,10 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 			//System.out.println("Y: " + originalY[i]);
 		}
 		int maxY = findMaxY();
+		
+		if(getComponents().length == 0)
+			return;
+		
 		setPreferredSize(new Dimension(getWidth(), originalY[maxY] + getComponents()[maxY].getWidth()));
 	}
 	
@@ -139,5 +143,8 @@ public class ScrollAppPanel extends JScrollPane implements MouseWheelListener, C
 		// TODO Auto-generated method stub
 		
 	}
+	/*
+	 * TODO Observer namiesto updateComponents();
+	 */
 
 }

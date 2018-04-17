@@ -21,6 +21,7 @@ public class AppButton extends BaseItem implements Clickable
 	private String text;
 	private Actions actions;
 	int fontSize = 18;
+	public Runnable saveDatabase;
 	
 	public AppButton(String text, boolean blacklisted, int ... layers) // Konstruktor
 	{

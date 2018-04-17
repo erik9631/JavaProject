@@ -31,9 +31,9 @@ public class Test extends BaseItem
 	private ScrollAppPanel panel;
 	private AppButton evaluateButton;
 	private AppButton backButton;
+	private Runnable onExitAction;
 	private float correct;
 
-	private Runnable onExitAction;
 	/*
 	 * Samotny test obsahujuci otazky
 	 */

@@ -6,11 +6,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public abstract class User implements CsvSerializable
+public abstract class User implements Serializable, CsvSerializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String username;
 	protected String password;
 	protected StringBuilder serializableProperties;
@@ -20,7 +25,7 @@ public abstract class User implements CsvSerializable
 	{
 		this.username = username;
 		this.password = password;
-		try
+		/*try
 		{
 			loadMessages();
 			System.out.println("messages loaded for:" + this.username);
@@ -28,7 +33,7 @@ public abstract class User implements CsvSerializable
 		{
 			messages = new ArrayList<String>();
 			System.out.println("messages not loaded for:" + this.username);
-		}
+		}*/
 
 	}
 	
@@ -62,14 +67,14 @@ public abstract class User implements CsvSerializable
 	public void sendMessage(String string)
 	{
 		messages.add(string);
-		try
+		/*try
 		{
 			saveMessages();
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public ArrayList<String> getMessages()
@@ -77,7 +82,7 @@ public abstract class User implements CsvSerializable
 		return messages;
 	}
 	
-	public String getUserName()
+	public String getUsername()
 	{
 		return username;
 	}

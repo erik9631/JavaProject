@@ -1,6 +1,8 @@
 package users;
 
+import java.io.BufferedReader;
 import java.io.EOFException;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,6 +26,7 @@ public class CsvSerializer<T extends User>
 	{
 		colum++;
 		FileReader reader = new FileReader(filename);
+		BufferedReader crap;
 		String content = "";
 		int n = '0';
 		
@@ -113,7 +116,7 @@ public class CsvSerializer<T extends User>
 	
 	private void saveProperties(T user, String filename) throws IOException // Ulozenie vlastnosti do csv
 	{	
-		if(findInColum(filename, user.getUserName(), 1) != -1)
+		if(findInColum(filename, user.getUsername(), 1) != -1)
 		{
 			throw new IOException("Error Username exists!");
 		}

@@ -4,15 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import backend.core.AppController;
+import backend.events.UserEventHandler;
 
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame implements ComponentListener
+public class MainFrame extends JFrame implements ComponentListener, WindowListener
 {
 	private int width, height;
 	private static ArrayList<ComponentInformer>subscribers = new ArrayList<>();
@@ -29,6 +32,7 @@ public class MainFrame extends JFrame implements ComponentListener
 	public MainFrame(int width, int height)
 	{
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Defaultna operacia po zruseni okna
+		addWindowListener(this);
 		this.width = width;
 		this.height = height;
 		setVisible(true);
@@ -59,6 +63,54 @@ public class MainFrame extends JFrame implements ComponentListener
 	}
 	@Override
 	public void componentShown(ComponentEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e)
+	{
+		UserEventHandler.notifyOnExit();
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e)
 	{
 		// TODO Auto-generated method stub
 		

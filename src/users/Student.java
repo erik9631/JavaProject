@@ -11,6 +11,12 @@ import backend.core.UserDatabase;
 public class Student extends User
 {
 	//Course assignedCourse;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Float> testPercentage;
 	public Student(String username, String password)
 	{
@@ -18,6 +24,12 @@ public class Student extends User
 		testPercentage = new ArrayList<Float>();
 		
 	}
+	
+	public String getUsername()
+	{
+		return username;
+	}
+	
 	public float getTestPercentage(int index)
 	{
 		return testPercentage.get(index);
@@ -25,7 +37,7 @@ public class Student extends User
 	@Override
 	public String csvSerialize()
 	{
-		serializableProperties.append(getUserName());
+		serializableProperties.append(getUsername());
 		serializableProperties.append(",");
 		serializableProperties.append(getPassword());
 		serializableProperties.append("\n");

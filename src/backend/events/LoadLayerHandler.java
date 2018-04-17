@@ -16,7 +16,6 @@ public final class LoadLayerHandler
 		
 	}
 	private final static ArrayList<LoadLayerEvent> subscribers = new ArrayList<LoadLayerEvent>();
-	
 	public static final void subscribe(LoadLayerEvent subscriber)
 	{
 		subscribers.add(subscriber);

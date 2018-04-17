@@ -29,16 +29,8 @@ public class Scene
 		 * load Students file and create student
 		 * 
 		 */
-		CsvSerializer<Student> csvserializer = new CsvSerializer<Student>();
-		csvserializer.loadDatabase("Students");
 		
-		UserDatabase database = new UserDatabase();
-		database.AddSubDatabase("Students", csvserializer.loadDatabase("Students.csv"));
-		System.out.println(database.getSubDatabase("Students"));
-		
-		Hashtable<String, Student>instanceDatabase = (Hashtable<String, Student>) database.instanciateSubDatabase("Students", "STUDENT");
-		//System.out.println(instanceDatabase.get("Jason").getPassword());
-			
+		Database database = new Database();
 		
 		
 		
@@ -96,12 +88,17 @@ public class Scene
 		//Definitions
 			// Layer 0
 		login.getActions().setOnClickAction(() -> {
-			if(database.findByUsername("Students", username.getText()).get(1).equals(password.getText()))
+			try
 			{
-				UserDatabase.currentUser = instanceDatabase.get(username.getText());
-				LoadLayerHandler.loadLayer(1);
-				System.out.println("Logged in as " + UserDatabase.currentUser);
-				UserEventHandler.notifyLogon();
+				if(database.getUser(username.getText()).getPassword().equals(password.getText()))
+				{
+					UserDatabase.currentUser = database.getUser(username.getText());
+					UserEventHandler.notifyLogon();
+					LoadLayerHandler.loadLayer(1);
+				}
+			} catch (Exception e)
+			{
+				e.printStackTrace();
 			}
 
 		});

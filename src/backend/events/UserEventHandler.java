@@ -26,5 +26,13 @@ public class UserEventHandler
 			i.onTestCompleted();
 		}
 	}
+	
+	public static void notifyOnExit()
+	{
+		for(UserEvent i : subscribers)
+		{
+			i.onClose();
+		}
+	}
 }
 	

@@ -1,5 +1,4 @@
 package backend.core;
-
 import backend.events.LoadLayerHandler;
 
 public class Main

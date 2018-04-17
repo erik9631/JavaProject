@@ -69,4 +69,11 @@ public class MessageBox extends BaseItem implements UserEvent
 		updateMessages();
 	}
 
+	@Override
+	public void onClose()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }
