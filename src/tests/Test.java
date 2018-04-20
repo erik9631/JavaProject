@@ -14,15 +14,17 @@ import javax.swing.JScrollBar;
 import backend.core.AppButton;
 import backend.core.AppController;
 import backend.core.BaseItem;
+import backend.core.Database;
 import backend.core.DefinedBehavior;
 import backend.core.MessageBox;
 import backend.core.UserDatabase;
 import backend.events.LoadLayerEvent;
 import backend.events.LoadLayerHandler;
-import backend.events.UserEventHandler;
+import backend.events.ApplicationEventHandler;
 import frontend.AppPanel;
 import frontend.LabelButton;
 import frontend.ScrollAppPanel;
+import users.Student;
 
 public class Test extends BaseItem
 {
@@ -33,6 +35,7 @@ public class Test extends BaseItem
 	private AppButton backButton;
 	private Runnable onExitAction;
 	private float correct;
+	private String name;
 
 	/*
 	 * Samotny test obsahujuci otazky
@@ -100,11 +103,27 @@ public class Test extends BaseItem
 		for(QuestionPanel i : questions)
 			if(i.isCorrect() == true)
 				correct++;
-		UserDatabase.currentUser.sendMessage("Uspesnost testu: " + ( correct / (float)questions.size()) * 100 );
+		if((Database.currentUser instanceof Student) == false)
+			System.out.println("Only students can do tests!");
+		Student user = (Student)Database.currentUser;
+		
+		user.sendMessage("Uspesnost testu: " + getName() + ": <span style=\"color: blue \">" + ( correct / (float)questions.size()) * 100 + "%</span>");
 		System.out.println(correct / (float)questions.size() * 100);
-		UserEventHandler.notifyTestComplete();
+		user.addGrade(name, layers.get(0), correct / (float)questions.size() * 100);
+		ApplicationEventHandler.notifyTestComplete();
 		correct = 0;
 		//UserDatabase.currentUser.s
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 	
 }

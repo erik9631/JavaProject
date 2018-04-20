@@ -3,23 +3,36 @@ package backend.core;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import backend.events.UserEvent;
-import backend.events.UserEventHandler;
+import backend.events.ApplicationEvent;
+import backend.events.ApplicationEventHandler;
 
 import frontend.ScrollAppPanel;
 
-public class MessageBox extends BaseItem implements UserEvent
+public class MessageBox extends BaseItem implements ApplicationEvent
 {
 	ScrollAppPanel panel;
 	/*
 	 * Trieda ktora sluzi na zobrazovanie sprav. 
 	 */
+	
+	ArrayList<String> messages;
 
-	public MessageBox(boolean blackListed, int ... layers)
+	public MessageBox(boolean blackListed,int ... layers)
 	{
 		super(layers, blackListed);
 		panel = createGuiComponent(new ScrollAppPanel(600, 400, Color.white, this));
-		UserEventHandler.subscribe(this);
+		ApplicationEventHandler.subscribe(this);
+		this.messages = messages;
+	}
+	
+	public void setMessageSource(ArrayList<String> messages)
+	{
+		this.messages = messages;
+	}
+	
+	public ArrayList<String> getMessages()
+	{
+		return messages;
 	}
 	
 	public void loadMessages() // Nacitavanie a zobrazovanie sprav pre prihlaseneho uzivatela
@@ -34,7 +47,7 @@ public class MessageBox extends BaseItem implements UserEvent
 		
 		counter = 0;
 		
-		for(String i : UserDatabase.currentUser.getMessages())
+		for(String i : messages)
 		{					
 			AppLabel label = new AppLabel(blackListed, panel, layers);
 			label.setText(i, 0);
@@ -71,6 +84,13 @@ public class MessageBox extends BaseItem implements UserEvent
 
 	@Override
 	public void onClose()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onReassign()
 	{
 		// TODO Auto-generated method stub
 		

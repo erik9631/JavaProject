@@ -1,3 +1,1 @@
-- Abstractisation and junk code removal
-- GUI Dynamic responsibility additions
-- 
+- Refactor courses and remove static in Courses class

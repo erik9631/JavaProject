@@ -1,6 +1,8 @@
 package frontend;
 
 import java.awt.Dimension;
+
+import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import backend.core.AppController;
@@ -16,6 +18,12 @@ public class AppTextField extends JTextField implements ResponsiveComponent
 	{
 		manager = new ComponentResponsibilityManager(this);
 		AppController.getAppPanel().add(this);
+	}
+	
+	public AppTextField(JComponent component)
+	{
+		manager = new ComponentResponsibilityManager(this);
+		component.add(this);
 	}
 	
 	public void setRelativePos(int x, int y)

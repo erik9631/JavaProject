@@ -3,10 +3,12 @@ package users;
 import java.awt.Toolkit;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import backend.core.AppController;
 import backend.core.UserDatabase;
+import tests.Test;
 
 public class Student extends User
 {
@@ -15,14 +17,46 @@ public class Student extends User
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<Float> testPercentage;
+	public class testData implements Serializable
+	{
+		private String testName;
+		private int testId;
+		private float testPercentage;
+		testData(String testName, int testId, float testPercentage)
+		{
+			this.testName = testName;
+			this.testId = testId;
+			this.testPercentage = testPercentage;
+		}
+		
+		public String getTestName()
+		{
+			return testName;
+		}
+		public int getTestId()
+		{
+			return testId;
+		}
+		public float getTestPercentage()
+		{
+			return testPercentage;
+		}
+	}
+	
+	private ArrayList<testData> testPercentage;
 	public Student(String username, String password)
 	{
 		super(username, password);
-		testPercentage = new ArrayList<Float>();
+		testPercentage = new ArrayList<testData>();
 		
+	}
+	
+	public ArrayList<testData> getTests()
+	{
+		return testPercentage;
 	}
 	
 	public String getUsername()
@@ -30,10 +64,31 @@ public class Student extends User
 		return username;
 	}
 	
-	public float getTestPercentage(int index)
+	public testData getTestbyId(int id)
 	{
-		return testPercentage.get(index);
+		for(testData i : testPercentage)
+			if(i.testId == id)
+				return i;
+		return null;
 	}
+	
+	public testData getTestbyName(String name)
+	{
+		for(testData i : testPercentage)
+			if(i.testName.equals(name))
+				return i;
+		return null;
+	}
+	
+	public void addGrade(String testName, int testId, float testPercentage)
+	{
+		testData test = getTestbyId(testId);
+		if(test == null)
+			this.testPercentage.add(new testData(testName, testId, testPercentage));
+		else
+			test.testPercentage = testPercentage;
+	}
+	
 	@Override
 	public String csvSerialize()
 	{

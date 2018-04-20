@@ -3,6 +3,8 @@ package backend.menu;
 import java.awt.Dimension;
 import java.nio.channels.SelectableChannel;
 
+import javax.swing.JComponent;
+
 import backend.core.BaseItem;
 import backend.events.LoadLayerEvent;
 import frontend.AppTextField;
@@ -17,6 +19,12 @@ public class WriteField extends BaseItem implements LoadLayerEvent
 	{
 		super(layers, blackListed);
 		field = createGuiComponent(new AppTextField());
+	}
+	
+	public WriteField(boolean blackListed, JComponent component, int... layers)
+	{
+		super(layers, blackListed);
+		field = createGuiComponent(new AppTextField(component));
 	}
 	
 	public void setPos(int x, int y)

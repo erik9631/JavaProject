@@ -1,18 +1,21 @@
 package backend.core;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 import backend.events.LoadLayerHandler;
-import backend.events.UserEventHandler;
+import backend.events.ApplicationEventHandler;
+import backend.menu.CourseMenu;
+import backend.menu.FeedbackMenu;
+import backend.menu.GradeMenu;
+import backend.menu.TestMenu;
 import backend.menu.TopMenuBar;
 import backend.menu.WriteField;
+import courses.Course;
+import courses.Courses;
 import frontend.MainFrame;
 import tests.QuestionPanel;
 import tests.Test;
-import users.CsvSerializer;
+import users.Instructor;
 import users.Student;
-import users.User;
 
 public class Scene
 {
@@ -31,6 +34,18 @@ public class Scene
 		 */
 		
 		Database database = new Database();
+		int[] TopMenuBlacklist = new int[1001];
+		TopMenuBlacklist[0] = 0;
+		for(int i = 1, j = 1000; i < 1000; i++, j++)
+			TopMenuBlacklist[i] = j;
+		/*database.addUser(new Student("erik", "1234"));
+		database.addUser(new Student("luke", "784"));
+		database.addUser(new Student("jensen", "1478"));
+		database.addUser(new Instructor("Brandon", "5555"));
+		database.addUser(new Instructor("Miko", "fghj"));
+		database.addUser(new Instructor("Peterson", "erta"));
+		database.addUser(new Instructor("Hudson", "lkj"));*/
+		new Courses(database);
 		
 		
 		
@@ -41,38 +56,23 @@ public class Scene
 		WriteField password = new WriteField(false, 0);
 		
 			// Layer 1
-		TopMenuBar menuBar = new TopMenuBar(0, 0, 0, 2);
+		TopMenuBar menuBar = new TopMenuBar(0, 0, TopMenuBlacklist);
 		MessageBox box = new MessageBox(false, 1);
 		box.setPosition(100, 100);
 		
 			// Layer 2
-		Test test = new Test(false, 2);
-		QuestionPanel question1 = new QuestionPanel(false, 2);
-		question1.setQuestion("Triedy v jazyku C++ majú pôvod v mechanizme: ");
-		question1.setAnswers("Union", "Struct", "Template", "Enum");
-		question1.setCorrectAnswer(1);
+		new CourseMenu(false, 2);
 		
-		QuestionPanel question2 = new QuestionPanel(false, 2);
-		question2.setQuestion("Co v jazyku C# zodpoveda pristupovym metodam v jazyku Java");
-		question2.setAnswers("Setter", "Delegate", "Accessor", "Property");
-		question2.setCorrectAnswer(2);
-
+			//Layer 3
+		new TestMenu(false, 3);
+			
+			//Layer 4
+		new FeedbackMenu(false, 4);
 		
-		QuestionPanel question3 = new QuestionPanel(false, 2);
-		question3.setQuestion("Co v jazyku C++ umoznuje emulovat spravanie rozhrani v jazyku java");
-		question3.setAnswers("Virtualne metody", "Abstraktne triedy", "Namespace", "Ine");
-		question3.setCorrectAnswer(1);
-
-		QuestionPanel question4 = new QuestionPanel(false, 2);
-		question4.setQuestion("Zachytenie výnimky v Jave");
-		question4.setAnswers("automaticky opravuje vzniknutú chybu", "ohrozuje integritu programu", "automaticky zastavuje program", "umožňuje jej spracovanie a pokračovanie v programe");
-		question4.setCorrectAnswer(3);
-
+			//Layer 5
+		new GradeMenu(false, database, 5);
 		
-		test.addQuestion(question1);
-		test.addQuestion(question2);
-		test.addQuestion(question3);
-		test.addQuestion(question4);
+
 		//Properties
 			// Layer 0
 		login.setFontSize(20);
@@ -92,9 +92,11 @@ public class Scene
 			{
 				if(database.getUser(username.getText()).getPassword().equals(password.getText()))
 				{
-					UserDatabase.currentUser = database.getUser(username.getText());
-					UserEventHandler.notifyLogon();
+					Database.currentUser = database.getUser(username.getText());
+					box.setMessageSource(Database.currentUser.getMessages());
+					ApplicationEventHandler.notifyLogon();
 					LoadLayerHandler.loadLayer(1);
+					System.out.println(Database.currentUser.getAssignedCourse());
 				}
 			} catch (Exception e)
 			{

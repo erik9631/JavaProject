@@ -11,18 +11,20 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Hashtable;
+import java.util.Set;
 
-import backend.events.UserEvent;
-import backend.events.UserEventHandler;
+import backend.events.ApplicationEvent;
+import backend.events.ApplicationEventHandler;
 import users.User;
 
-public class Database implements UserEvent
+public class Database implements ApplicationEvent
 {
 	Hashtable<String, User> userDatabase;
+	public static User currentUser;
 	public Database()
 	{
 		loadDatabase();
-		UserEventHandler.subscribe(this);
+		ApplicationEventHandler.subscribe(this);
 	}
 	
 	public User getUser(String key) throws ClassNotFoundException
@@ -32,6 +34,12 @@ public class Database implements UserEvent
 			throw new ClassNotFoundException("Error username not found");
 		else
 			return user;
+	}
+	
+	public Set<String> getUsernames()
+	{
+		System.out.println(userDatabase);
+		return userDatabase.keySet();
 	}
 	
 	public void loadDatabase()
@@ -89,6 +97,7 @@ public class Database implements UserEvent
 			obj.close();
 			output.close();
 			saveCredentialsToCsv();
+			System.out.println("saved");
 		}
 		catch(IOException e)
 		{
@@ -105,7 +114,6 @@ public class Database implements UserEvent
 	@Override
 	public void onLogOn()
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -113,6 +121,13 @@ public class Database implements UserEvent
 	public void onClose()
 	{
 		saveDatabase();
+	}
+
+	@Override
+	public void onReassign()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

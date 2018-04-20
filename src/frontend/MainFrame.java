@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import backend.core.AppController;
-import backend.events.UserEventHandler;
+import backend.events.ApplicationEventHandler;
 
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ComponentListener, WindowListener
@@ -85,7 +85,7 @@ public class MainFrame extends JFrame implements ComponentListener, WindowListen
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		UserEventHandler.notifyOnExit();
+		ApplicationEventHandler.notifyOnExit();
 	}
 
 	@Override

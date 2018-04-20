@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import courses.Course;
+
 
 public abstract class User implements Serializable, CsvSerializable
 {
@@ -20,11 +22,13 @@ public abstract class User implements Serializable, CsvSerializable
 	protected String password;
 	protected StringBuilder serializableProperties;
 	protected ArrayList<String>messages;
+	protected String assignedCourse;
 	
 	protected User(String username, String password)
 	{
 		this.username = username;
 		this.password = password;
+		messages = new ArrayList<String>();
 		/*try
 		{
 			loadMessages();
@@ -91,6 +95,17 @@ public abstract class User implements Serializable, CsvSerializable
 	{
 		return password;
 	}
+	
+	public void assignToCourse(Course course)
+	{
+		assignedCourse = course.getCourseName();
+	}
+	
+	public String getAssignedCourse()
+	{
+		return assignedCourse;
+	}
+	
 	
 	/*
 	 * TODO

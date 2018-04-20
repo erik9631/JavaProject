@@ -2,7 +2,8 @@ package courses;
 
 import java.util.ArrayList;
 
-import tests.Test;
+import tests.ITest;
+import users.Instructor;
 import users.User;
 
 public class Course
@@ -12,33 +13,47 @@ public class Course
 	 * Vyuzitie agregacie.
 	 */
 	private ArrayList<User> users;
-	private ArrayList<Test> tests;
+	private ArrayList<ITest> tests;
 	
-	private User instructor;
+	private String courseName;
+	private Instructor instructor;
 	
-	public Course(User instructor)
+	public Course(Instructor instructor, String courseName)
 	{
 		users = new ArrayList<User>();
-		tests = new ArrayList<Test>();
+		tests = new ArrayList<ITest>();
+		this.courseName = courseName;
+		this.instructor = instructor;
 	}
 	
-	public void addUsers(ArrayList<User> users)
+	public String getCourseName()
 	{
-		users.addAll(users);
+		return courseName;
 	}
 	
 	public void addUser(User user)
 	{
 		users.add(user);
+		user.assignToCourse(this);
 	}
 	
-	public void setInstructor(User instructor)
+	public void setInstructor(Instructor instructor)
 	{
 		this.instructor = instructor;
 	}
 	
-	public void addTest(Test test)
+	public Instructor getInstructor()
+	{
+		return instructor;
+	}
+	
+	public void addTest(ITest test)
 	{
 		tests.add(test);
+	}
+	
+	public ArrayList<ITest> getTests()
+	{
+		return tests;
 	}
 }

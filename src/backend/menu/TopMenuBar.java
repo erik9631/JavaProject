@@ -7,7 +7,10 @@ import javax.swing.BorderFactory;
 
 import backend.core.AppButton;
 import backend.core.BaseItem;
+import backend.core.Database;
+import backend.core.UserDatabase;
 import backend.events.LoadLayerHandler;
+import courses.Courses;
 import frontend.AppPanel;
 import frontend.ComponentResponsibilityManager;
 import frontend.ResponsiveComponent;
@@ -43,7 +46,7 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		AppButton tests = new AppButton("Tests", true, panel ,0);
 		AppButton grades = new AppButton("Grades", true, panel, 0);
 		AppButton course = new AppButton("Course Feedback", true, panel, 0);
-		AppButton forums = new AppButton("Forums", true, panel, 0);
+		AppButton courses = new AppButton("Courses", true, panel, 0);
 		
 		//Defines
 		panel.setBorder(BorderFactory.createEtchedBorder());
@@ -58,17 +61,30 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		tests.setFontSize(fontSize);
 		tests.getActions().setOnClickAction(() ->
 		{
-			LoadLayerHandler.loadLayer(2);
+			LoadLayerHandler.loadLayer(3);
 		});
 		
 		grades.setPos(tests.getPosX() + spaceSize + tests.getWidth(), centerY);
 		grades.setFontSize(fontSize);
+		grades.getActions().setOnReleaseAction(()->
+		{
+			LoadLayerHandler.loadLayer(5);
+		});
 		
 		course.setPos(grades.getPosX() + spaceSize + grades.getWidth(), centerY);
 		course.setFontSize(fontSize);
+		course.getActions().setOnReleaseAction(()->
+		{
+			LoadLayerHandler.loadLayer(4);
+		});
 		
-		forums.setPos(course.getPosX() + spaceSize + course.getWidth(), centerY);
-		forums.setFontSize(fontSize);		
+		courses.setPos(course.getPosX() + spaceSize + course.getWidth(), centerY);
+		courses.setFontSize(fontSize);	
+		courses.getActions().setOnReleaseAction( ()->
+		{
+			LoadLayerHandler.loadLayer(2);
+		});
+		
 	}
 	@Override
 	public String getFontText()
