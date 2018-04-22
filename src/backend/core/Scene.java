@@ -4,6 +4,7 @@ package backend.core;
 import backend.events.LoadLayerHandler;
 import backend.events.ApplicationEventHandler;
 import backend.menu.CourseMenu;
+import backend.menu.CuriculMenu;
 import backend.menu.FeedbackMenu;
 import backend.menu.GradeMenu;
 import backend.menu.TestMenu;
@@ -71,6 +72,9 @@ public class Scene
 		
 			//Layer 5
 		new GradeMenu(false, database, 5);
+		
+			//Layer 6
+		new CuriculMenu(false, 6);
 		
 
 		//Properties

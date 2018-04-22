@@ -56,6 +56,10 @@ public class TopMenuBar extends BaseItem implements ResponsiveComponent
 		
 		curiculum.setPos(25, -5);
 		curiculum.setFontSize(fontSize);
+		curiculum.getActions().setOnReleaseAction(()->
+		{
+			LoadLayerHandler.loadLayer(6);
+		});
 		
 		tests.setPos(curiculum.getPosX() + spaceSize + curiculum.getWidth(), centerY);
 		tests.setFontSize(fontSize);
