@@ -95,7 +95,6 @@ public class Test extends BaseItem
 		}
 		evaluateButton.setPos(20, ( (questions.size()) * questions.get(0).getHeight() ) + (spaceSize * questions.size()));
 		backButton.setPos(evaluateButton.getPosX(), evaluateButton.getPosY() + spaceSize);
-		System.out.println(panel.getPreferredSize());
 	}
 	
 	private void evaluate() // Vyhodnotenie testu

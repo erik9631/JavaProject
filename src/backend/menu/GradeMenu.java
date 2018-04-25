@@ -41,7 +41,7 @@ public class GradeMenu implements ApplicationEvent
 	private void generateInstructorGrades()
 	{
 		Instructor instructor = (Instructor)Database.currentUser;
-		Course course;
+		Course course = null;
 		try
 		{
 			course = Courses.getCourseByName(instructor.getAssignedCourse());
@@ -49,22 +49,21 @@ public class GradeMenu implements ApplicationEvent
 		{
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
-		}
-				
+		}				
 		for(String username : database.getUsernames())
 		{
 			User user = null;
 			try
 			{
 				user = database.getUser(username);
+				if(user instanceof Student && user.getAssignedCourse().equals(instructor.getAssignedCourse()))
+				{
+					generateStudentGrades((Student)user, user.getUsername());
+				}
 			} catch (ClassNotFoundException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			if(user instanceof Student)
-			{
-				generateStudentGrades((Student)user, user.getUsername());
 			}
 			
 		}

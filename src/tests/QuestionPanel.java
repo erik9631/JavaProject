@@ -36,7 +36,7 @@ public class QuestionPanel extends BaseItem
 	{
 		super(layers, blackListed);
 		radioButtons = new BackEndRadioButton[4];
-		testPanel = createGuiComponent(new AppPanel(500, 150, Color.DARK_GRAY, this));
+		testPanel = createGuiComponent(new AppPanel(550, 150, Color.DARK_GRAY, this));
 		testPanel.setBorder(BorderFactory.createRaisedBevelBorder());
 		
 		
@@ -80,7 +80,9 @@ public class QuestionPanel extends BaseItem
 	public void setAnswers(String ... text) // Nastavenie odpovedi
 	{
 		for(int i = 0; i < 4; i++)
+		{
 			radioButtons[i].setText(text[i]);
+		}
 	}
 	
 	public void setCorrectAnswer(int correctAnswer)
@@ -97,7 +99,7 @@ public class QuestionPanel extends BaseItem
 	
 	public void setPosition(int x, int y)
 	{
-		testPanel.setBounds(x, y, 500, 150);
+		testPanel.setBounds(x, y, 550, 150);
 	}
 	
 	public int getHeight()

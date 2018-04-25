@@ -71,7 +71,7 @@ public class Database implements ApplicationEvent
 	{
 		String credentials = "";
 		for(String i : userDatabase.keySet())
-			credentials += i + "," + userDatabase.get(i).getPassword() +"\n";
+			credentials += i + "," + userDatabase.get(i).getPassword() + "," + userDatabase.get(i).getAssignedCourse() + "\n";	
 		return credentials;
 	}
 	

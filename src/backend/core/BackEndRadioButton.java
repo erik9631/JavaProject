@@ -41,6 +41,12 @@ public class BackEndRadioButton extends BaseItem
 	public void setText(String text)
 	{
 		radioButton.setText(text);
+		setSize(475, radioButton.getHeight());
+	}
+	
+	public void setSize(int width, int height)
+	{
+		radioButton.setSize(width, height);
 	}
 	
 	/*

@@ -45,7 +45,9 @@ public class Scene
 		database.addUser(new Instructor("Brandon", "5555"));
 		database.addUser(new Instructor("Miko", "fghj"));
 		database.addUser(new Instructor("Peterson", "erta"));
-		database.addUser(new Instructor("Hudson", "lkj"));*/
+		database.addUser(new Instructor("Hudson", "lkj"));
+		database.addUser(new Student("jakub", "kvetinka"));
+		database.addUser(new Student("filip", "44"));*/
 		new Courses(database);
 		
 		

@@ -3,8 +3,10 @@ package courses;
 import java.util.ArrayList;
 
 import backend.core.Database;
+import tests.CPlusTest;
 import tests.JavaTest;
 import tests.JavaTest2;
+import tests.NetworkingTest;
 import users.Instructor;
 
 public class Courses
@@ -17,6 +19,7 @@ public class Courses
 		try
 		{
 			Course javaCourse = new Course((Instructor)(database.getUser("Brandon")), "OOP Course");
+			database.getUser("Brandon").assignToCourse(javaCourse);
 			//javaCourse.addUser(database.getUser("erik"));
 			javaCourse.addTest(new JavaTest());
 			javaCourse.addTest(new JavaTest2());
@@ -29,6 +32,8 @@ public class Courses
 		try
 		{
 			Course networkCourse = new Course((Instructor)database.getUser("Miko"), "Networking Course");
+			database.getUser("Miko").assignToCourse(networkCourse);
+			networkCourse.addTest(new NetworkingTest());
 			courses.add(networkCourse);
 
 		} catch (ClassNotFoundException e)
@@ -39,6 +44,8 @@ public class Courses
 		try
 		{
 			Course cplusCourse = new Course((Instructor)database.getUser("Peterson"), "C++ course");
+			database.getUser("Peterson").assignToCourse(cplusCourse);
+			cplusCourse.addTest(new CPlusTest());
 			courses.add(cplusCourse);
 
 		} catch (ClassNotFoundException e)
@@ -49,6 +56,7 @@ public class Courses
 		try
 		{
 			Course essentials = new Course((Instructor)database.getUser("Hudson"), "IT Essentials course");
+			database.getUser("Peterson").assignToCourse(essentials);
 			courses.add(essentials);
 
 		} catch (ClassNotFoundException e)
